@@ -30,7 +30,7 @@ public class SimpleJobConfiguration {
     public Step simpleStep1() {
         return stepBuilderFactory.get("simpleStep1")
                 .tasklet((contribution, chunkContext) -> {
-                    log.info(">>>>> This is Step1");
+                    log.info((">>>>> This is Step1"));
                     return RepeatStatus.FINISHED;
                 })
                 .build();

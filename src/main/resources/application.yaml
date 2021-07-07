@@ -1,0 +1,57 @@
+
+
+
+server:
+    port: 9090
+    shutdown: graceful
+
+spring:
+    config:
+        activate:
+            on-profile: local
+---
+spring:
+    config:
+        activate:
+            on-profile: local
+    batch:
+        jdbc:
+            initialize-schema: always
+    datasource:
+        driver-class-name: org.h2.Driver
+        hikari:
+            maximum-pool-size: 4
+        password: ''
+        url: jdbc:h2:~/temp/jpabatch-work;
+        username: sa
+    jpa:
+        generate-ddl: true
+        hibernate:
+            ddl-auto: create
+        show-sql: true
+    sql:
+        init:
+            mode: always
+            platform: h2
+
+logging:
+    file:
+        name: logs/app.log
+    level:
+        jdbc: error
+        org:
+            hibernate:
+                SQL: 'off'
+            springframework:
+                web: "debug\t\t"
+        sql: error
+    logback:
+        rollingpolicy:
+            file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}-%i.log
+            max-file-size: 100MB
+            max-history: 9999999
+    pattern:
+        console: '%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line]
+            - %msg%n'
+        file: '%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line]
+            - %msg%n'
