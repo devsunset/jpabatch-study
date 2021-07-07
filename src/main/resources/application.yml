@@ -1,19 +1,4 @@
-
-
-
-server:
-    port: 9090
-    shutdown: graceful
-
 spring:
-    config:
-        activate:
-            on-profile: local
----
-spring:
-    config:
-        activate:
-            on-profile: local
     batch:
         jdbc:
             initialize-schema: always
@@ -38,6 +23,11 @@ logging:
     file:
         name: logs/app.log
     level:
+        com:
+            example:
+                springwork:
+                    dao:
+                        mapper: TRACE
         jdbc: error
         org:
             hibernate:
@@ -55,3 +45,4 @@ logging:
             - %msg%n'
         file: '%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line]
             - %msg%n'
+
