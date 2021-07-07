@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Configuration
 public class SimpleJobConfiguration {
-    // private static final Logger log = LoggerFactory.getLogger(SimpleJobConfiguration.class);
+
     private final JobBuilderFactory jobBuilderFactory; 
     private final StepBuilderFactory stepBuilderFactory;
 
