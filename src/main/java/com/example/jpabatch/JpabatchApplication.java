@@ -1,4 +1,4 @@
-package com.example.jpabatch.jpabatch;
+package com.example.jpabatch;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
