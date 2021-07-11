@@ -20,7 +20,7 @@ public class SimpleJobConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory; 
     private final StepBuilderFactory stepBuilderFactory;
-
+    
     @Bean
     public Job simpleJob() {
         return jobBuilderFactory.get("simpleJob")
@@ -32,10 +32,11 @@ public class SimpleJobConfiguration {
     @Bean
     @JobScope
     public Step simpleStep1(@Value("#{jobParameters[requestDate]}") String requestDate) {
+        log.info("============================================= : "+requestDate);
         return stepBuilderFactory.get("simpleStep1")
                 .tasklet((contribution, chunkContext) -> {
-                    log.info(">>>>> This is Step1");
-                    log.info(">>>>> requestDate = {}", requestDate);
+                    log.info("========== This is Step1");
+                    log.info("========== requestDate = {}", requestDate);
                     return RepeatStatus.FINISHED;
                 })
                 .build();
@@ -44,10 +45,11 @@ public class SimpleJobConfiguration {
     @Bean
     @JobScope
     public Step simpleStep2(@Value("#{jobParameters[requestDate]}") String requestDate) {
+        log.info("============================================= : "+requestDate);
         return stepBuilderFactory.get("simpleStep2")
                 .tasklet((contribution, chunkContext) -> {
-                    log.info(">>>>> This is Step2");
-                    log.info(">>>>> requestDate = {}", requestDate);
+                    log.info("========== This is Step2");
+                    log.info("========== requestDate = {}", requestDate);
                     return RepeatStatus.FINISHED;
                 })
                 .build();
