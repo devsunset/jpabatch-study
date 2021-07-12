@@ -26,6 +26,7 @@ public class DeciderJobConfiguration {
 
     @Bean
     public Job deciderJob() {
+        log.info("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ : DeciderJobConfiguration");
         return jobBuilderFactory.get("deciderJob")
                 .start(startStep())
                 .next(decider()) // 홀수 | 짝수 구분

@@ -34,6 +34,7 @@ public class JdbcCursorItemReaderJobConfiguration {
 
     @Bean
     public Job jdbcCursorItemReaderJob() {
+        log.info("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ : JdbcCursorItemReaderJobConfiguration");
         return jobBuilderFactory.get("jdbcCursorItemReaderJob")
                 .start(initPayDataStep())
                 .next(jdbcCursorItemReaderStep())

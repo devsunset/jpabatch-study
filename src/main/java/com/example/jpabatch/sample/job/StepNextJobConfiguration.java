@@ -21,6 +21,7 @@ public class StepNextJobConfiguration {
 
     @Bean
     public Job stepNextJob() {
+        log.info("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ : StepNextJobConfiguration");
         return jobBuilderFactory.get("stepNextJob")
                 .start(step1())
                 .next(step2())

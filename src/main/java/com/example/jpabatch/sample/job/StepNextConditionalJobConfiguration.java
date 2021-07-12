@@ -22,6 +22,7 @@ public class StepNextConditionalJobConfiguration {
 
     @Bean
     public Job stepNextConditionalJob() {
+        log.info("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ : StepNextConditionalJobConfiguration");
         return jobBuilderFactory.get("stepNextConditionalJob")
                 .start(conditionalJobStep1())
                     .on("FAILED") // FAILED 일 경우
