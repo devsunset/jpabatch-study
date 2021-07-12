@@ -29,7 +29,6 @@ public class JpaPagingItemReaderJobConfiguration {
 
     @Bean
     public Job jpaPagingItemReaderJob() {
-        log.info("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ : JpaPagingItemReaderJobConfiguration");
         return jobBuilderFactory.get("jpaPagingItemReaderJob")
                 .start(jpaPagingItemReaderStep())
                 .build();

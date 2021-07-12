@@ -17,9 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequiredArgsConstructor
 @Configuration
 public class JdbcBatchItemWriterJobConfiguration {
@@ -31,7 +29,7 @@ public class JdbcBatchItemWriterJobConfiguration {
 
     @Bean
     public Job jdbcBatchItemWriterJob() {
-        log.info("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ : JdbcBatchItemWriterJobConfiguration");
+       
         return jobBuilderFactory.get("jdbcBatchItemWriterJob")
                 .start(jdbcBatchItemWriterStep())
                 .build();

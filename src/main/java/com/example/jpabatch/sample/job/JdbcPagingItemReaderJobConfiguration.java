@@ -36,7 +36,6 @@ public class JdbcPagingItemReaderJobConfiguration {
 
     @Bean
     public Job jdbcPagingItemReaderJob() throws Exception {
-        log.info("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ : JdbcPagingItemReaderJobConfiguration");
         return jobBuilderFactory.get("jdbcPagingItemReaderJob")
                 .start(jdbcPagingItemReaderStep())
                 .build();

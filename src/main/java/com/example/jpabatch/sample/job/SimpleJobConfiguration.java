@@ -30,7 +30,6 @@ public class SimpleJobConfiguration {
     
     @Bean
     public Job simpleJob() {
-        log.info("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ : SimpleJobConfiguration");
         return jobBuilderFactory.get("simpleJob")
                 .start(simpleStep1(null))
                 .next(simpleStep2(null))
