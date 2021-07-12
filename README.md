@@ -19,3 +19,5 @@ Sample
 6. JdbcPagingItemReaderJobConfiguration
 
 7. JpaPagingItemReaderJobConfiguration
+
+8. JdbcBatchItemWriterJobConfiguration
