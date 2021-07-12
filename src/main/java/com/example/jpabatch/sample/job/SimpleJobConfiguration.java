@@ -1,4 +1,4 @@
-package com.example.jpabatch.job;
+package com.example.jpabatch.sample.job;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
