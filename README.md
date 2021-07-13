@@ -1,6 +1,6 @@
 # jpabatch-work
 
-### Spring JPA Reference
+# Spring JPA Reference
 https://github.com/cheese10yun/spring-jpa-best-practices
 
 ### Spring JPA Example Source
@@ -10,7 +10,7 @@ https://github.com/holyeye/jpabook
 https://www.youtube.com/playlist?list=PL9mhQYIlKEhfpMVndI23RwWTL9-VL-B7U
 
 
-### Spring Batch Reference 
+# Spring Batch Reference 
 https://github.com/jojoldu/spring-batch-in-action
 
 ### Spring Batch Example source
