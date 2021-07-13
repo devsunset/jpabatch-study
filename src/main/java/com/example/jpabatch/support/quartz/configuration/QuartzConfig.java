@@ -40,7 +40,7 @@ public class QuartzConfig {
             }
 
 			scheduler.scheduleJob(testJobDetail, buildJobTrigger("* * * * * ?"));
-            scheduler.scheduleJob(batchJobDetail, buildJobTrigger("0/10 * * * * ?"));
+            scheduler.scheduleJob(batchJobDetail, buildJobTrigger("0 0/5 * * * ?"));
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}

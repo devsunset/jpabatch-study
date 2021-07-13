@@ -61,7 +61,7 @@ public class BatchScheduler {
     // @Scheduled(fixedRate = 1000)                                                     // scheduler 시작하는 시간 기준으로 1000 간격으로 실행
     // @Scheduled(cron = "0 15 10 15 * ?")                                          // cron에 따라 실행
     // @Scheduled(cron = "0 15 10 15 * ?", zone = "Europe/Paris")   // cron에 TimeZone 설정 추가
-    @Scheduled(initialDelay = 10000, fixedDelay = 30000)
+    @Scheduled(initialDelay = 10000, fixedDelay = 90000)
     public void runJob() throws Exception {
 
         JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
