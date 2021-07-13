@@ -45,6 +45,7 @@ public class ProcessorConvertJobConfiguration {
                 .<Pay, String>chunk(chunkSize)
                 .reader(processorConvertReader())
                 .processor(processorConvertProcessor())
+                // .processor(compositeProcessor())
                 .writer(processorConvertWriter())
                 .build();
     }
@@ -58,18 +59,43 @@ public class ProcessorConvertJobConfiguration {
                 .queryString("SELECT p FROM Pay p")
                 .build();
     }
-    
+
+    //     Spring Batch에서 트랜잭션 범위는 Chunk단위 입니다.
+    //    그래서 Reader에서 Entity를 반환해주었다면 Entity간의 Lazy Loading이 가능합니다. 
+    //    이는 Processor뿐만 아니라 Writer에서도 가능 합니다.
+    //    Processor와 Writer는 트랜잭션 범위 안이며, Lazy Loading이 가능
+
     @Bean
     public ItemProcessor<Pay, String> processorConvertProcessor() {
         return pay -> {
             boolean isIgnoreTarget = pay.getId() % 2 == 0L;
             if(isIgnoreTarget){
-                log.info(">>>>>>>>> Teacher name={}, isIgnoreTarget={}", pay.getTxName(), isIgnoreTarget);
+                log.info(">>>>>>>>> Pay txName={}, isIgnoreTarget={}", pay.getTxName(), isIgnoreTarget);
                 return null; //Filter  -> null return skip
             }
+      
             return pay.getTxName();
         };
     }
+
+    // @Bean
+    // @SuppressWarnings("uncheckd")
+    // public CompositeItemProcessor compositeProcessor() {
+    //     List<ItemProcessor> delegates = new ArrayList<>(2);
+    //     delegates.add(processor1());
+    //     delegates.add(processor2());
+    //     CompositeItemProcessor processor = new CompositeItemProcessor<>();
+    //     processor.setDelegates(delegates);
+    //     return processor;
+    // }
+
+    // public ItemProcessor<Pay, String> processor1() {
+    //     return Pay::getTxName;
+    // }
+
+    // public ItemProcessor<String, String> processor2() {
+    //     return name -> "안녕하세요. "+ name + " 입니다.";
+    // }
 
     private ItemWriter<String>  processorConvertWriter() {
         return items -> {
