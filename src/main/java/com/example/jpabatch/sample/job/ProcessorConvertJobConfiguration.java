@@ -62,6 +62,11 @@ public class ProcessorConvertJobConfiguration {
     @Bean
     public ItemProcessor<Pay, String> processorConvertProcessor() {
         return pay -> {
+            boolean isIgnoreTarget = pay.getId() % 2 == 0L;
+            if(isIgnoreTarget){
+                log.info(">>>>>>>>> Teacher name={}, isIgnoreTarget={}", pay.getTxName(), isIgnoreTarget);
+                return null; //Filter  -> null return skip
+            }
             return pay.getTxName();
         };
     }
