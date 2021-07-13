@@ -10,19 +10,20 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.batch.item.database.JpaItemWriter;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.JpaPagingItemReader;
 import org.springframework.batch.item.database.builder.JpaPagingItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Configuration
-public class JpaItemWriterJobConfiguration {
+public class CustomItemWriterJobConfiguration {
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final EntityManagerFactory entityManagerFactory;
@@ -30,26 +31,26 @@ public class JpaItemWriterJobConfiguration {
     private static final int chunkSize = 10;
 
     @Bean
-    public Job jpaItemWriterJob() {
-        return jobBuilderFactory.get("jpaItemWriterJob")
-                .start(jpaItemWriterStep())
+    public Job customItemWriterJob() {
+        return jobBuilderFactory.get("customItemWriterJob")
+                .start(customItemWriterStep())
                 .build();
     }
 
     @Bean
-    public Step jpaItemWriterStep() {
-        return stepBuilderFactory.get("jpaItemWriterStep")
+    public Step customItemWriterStep() {
+        return stepBuilderFactory.get("customItemWriterStep")
                 .<Pay, Pay2>chunk(chunkSize)
-                .reader(jpaItemWriterReader())
-                .processor(jpaItemProcessor())
-                .writer(jpaItemWriter())
+                .reader(customItemWriterReader())
+                .processor(customItemWriterProcessor())
+                .writer(customItemWriter())
                 .build();
     }
 
     @Bean
-    public JpaPagingItemReader<Pay> jpaItemWriterReader() {
+    public JpaPagingItemReader<Pay> customItemWriterReader() {
         return new JpaPagingItemReaderBuilder<Pay>()
-                .name("jpaItemWriterReader")
+                .name("customItemWriterReader")
                 .entityManagerFactory(entityManagerFactory)
                 .pageSize(chunkSize)
                 .queryString("SELECT p FROM Pay p")
@@ -57,16 +58,30 @@ public class JpaItemWriterJobConfiguration {
     }
 
     @Bean
-    public ItemProcessor<Pay, Pay2> jpaItemProcessor() {
+    public ItemProcessor<Pay, Pay2> customItemWriterProcessor() {
         return pay -> new Pay2(pay.getAmount(), pay.getTxName(), pay.getTxDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 
-    
-
     @Bean
-    public JpaItemWriter<Pay2> jpaItemWriter() {
-        JpaItemWriter<Pay2> jpaItemWriter = new JpaItemWriter<>();
-        jpaItemWriter.setEntityManagerFactory(entityManagerFactory);
-        return jpaItemWriter;
+    public ItemWriter<Pay2> customItemWriter() {
+        return new ItemWriter<Pay2>() {
+            @Override
+            public void write(List<? extends Pay2> items) throws Exception {
+                System.out.println("================ customItemWriter =====================");
+                for (Pay2 item : items) {
+                    System.out.println(item);
+                }
+            }
+        };
     }
+
+//   Lamda
+//   @Bean
+//    public ItemWriter<Pay2> customItemWriter() {
+//        return items -> {
+//            for (Pay2 item : items) {
+//                System.out.println(item);
+//            }
+//        };
+//    }
 }
