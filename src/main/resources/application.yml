@@ -21,6 +21,28 @@ spring:
     sql:
         init:
             platform: h2
+    quartz:
+        job-store-type: jdbc
+        jdbc:
+            initialize-schema: always
+        properties:
+            org:
+                quartz:
+                scheduler:
+                    instanceId: AUTO
+                jobStore:
+                    class: org.quartz.impl.jdbcjobstore.JobStoreTX
+                    driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+                    useProperties: false
+                    tablePrefix: QRTZ_
+                    misfireThreshold: 60000
+                    clusterCheckinInterval: 1000
+                    isClustered: true
+                threadPool:
+                    class: org.quartz.simpl.SimpleThreadPool
+                    threadCount: 10
+                    threadPriority: 5
+                    threadsInheritContextClassLoaderOfInitializingThread: true
 
 logging:
     file:

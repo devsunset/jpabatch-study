@@ -20,13 +20,11 @@ public class JpabatchApplication {
 
     public static JobParameters getJobParameters() {
         JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
-        jobParametersBuilder.addString("reqSeq", System.currentTimeMillis()+"");
+        jobParametersBuilder.addString("reqSeq", System.currentTimeMillis()+"-Main");
         return jobParametersBuilder.toJobParameters();
     }
 
-
-
-	public static void main(String[] args)
+    public static void main(String[] args)
             throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException, org.springframework.batch.core.repository.JobRestartException {
         ConfigurableApplicationContext ctx = SpringApplication.run(JpabatchApplication.class, args);
         JobLauncher jobLauncher = (JobLauncher) ctx.getBean("jobLauncher");
