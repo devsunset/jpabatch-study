@@ -51,7 +51,7 @@ public class QuartzConfig {
                 .withSchedule(CronScheduleBuilder.cronSchedule(scheduleExp)).build();
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked","rawtypes"}) 
     public JobDetail buildJobDetail(Class job, String name, String group, String desc , HashMap<String,String> params) {
         JobDataMap jobDataMap = new JobDataMap();
         jobDataMap.putAll(params);
