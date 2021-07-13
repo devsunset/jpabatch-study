@@ -1,9 +1,19 @@
 # jpabatch-work
 
+### Spring JPA Reference
+https://github.com/cheese10yun/spring-jpa-best-practices
+
+### Spring JPA Example Source
+https://github.com/holyeye/jpabook
+
+### Spring JPA LINK
+https://www.youtube.com/playlist?list=PL9mhQYIlKEhfpMVndI23RwWTL9-VL-B7U
+
+
 ### Spring Batch Reference 
 https://github.com/jojoldu/spring-batch-in-action
 
-### Spring Batch Sample
+### Spring Batch Example source
 1. SimpleJobConfiguration
 2. StepNextJobConfiguration
 3. StepNextConditionalJobConfiguration
