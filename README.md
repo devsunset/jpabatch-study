@@ -14,6 +14,7 @@ https://github.com/jojoldu/spring-batch-in-action
 8. JdbcBatchItemWriterJobConfiguration
 9. JpaItemWriterJobConfiguration
 10. CustomItemWriterJobConfiguration
+11. ProcessorConvertJobConfiguration
 
 
 # Link
