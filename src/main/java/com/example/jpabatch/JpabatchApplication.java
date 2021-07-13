@@ -38,6 +38,8 @@ public class JpabatchApplication {
         Job job6= (Job) ctx.getBean("jdbcPagingItemReaderJob");
         Job job7= (Job) ctx.getBean("jpaPagingItemReaderJob");
         Job job8= (Job) ctx.getBean("jdbcBatchItemWriterJob");
+        Job job9= (Job) ctx.getBean("jpaItemWriterJob");
+
         jobLauncher.run(job1,getJobParameters());
         jobLauncher.run(job2,getJobParameters());
         jobLauncher.run(job3,getJobParameters());
@@ -46,6 +48,7 @@ public class JpabatchApplication {
         jobLauncher.run(job6,getJobParameters());
         jobLauncher.run(job7,getJobParameters());
         jobLauncher.run(job8,getJobParameters());
+        jobLauncher.run(job9,getJobParameters());
     }
 
 }

@@ -3,24 +3,16 @@
 ### Reference 
 https://github.com/jojoldu/spring-batch-in-action
 
-Sample
-
+### Sample
 1. SimpleJobConfiguration
-
 2. StepNextJobConfiguration
-
 3. StepNextConditionalJobConfiguration
-
 4. DeciderJobConfiguration
-
 5. JdbcCursorItemReaderJobConfiguration
-
 6. JdbcPagingItemReaderJobConfiguration
-
 7. JpaPagingItemReaderJobConfiguration
-
 8. JdbcBatchItemWriterJobConfiguration
-
+9. JpaItemWriterJobConfiguration
 
 
 # Link
