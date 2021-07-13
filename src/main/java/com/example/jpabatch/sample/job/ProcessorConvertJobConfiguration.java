@@ -2,7 +2,7 @@ package com.example.jpabatch.sample.job;
 
 import javax.persistence.EntityManagerFactory;
 
-import com.example.jpabatch.sample.domain.Pay;
+import com.example.jpabatch.sample.domain.Teacher;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -42,7 +42,7 @@ public class ProcessorConvertJobConfiguration {
     @JobScope
     public Step processorConvertJobStep() {
         return stepBuilderFactory.get( "processorConvertStep")
-                .<Pay, String>chunk(chunkSize)
+                .<Teacher, String>chunk(chunkSize)
                 .reader(processorConvertReader())
                 .processor(processorConvertProcessor())
                 // .processor(compositeProcessor())
@@ -51,12 +51,12 @@ public class ProcessorConvertJobConfiguration {
     }
 
     @Bean
-    public JpaPagingItemReader<Pay> processorConvertReader() {
-        return new JpaPagingItemReaderBuilder<Pay>()
+    public JpaPagingItemReader<Teacher> processorConvertReader() {
+        return new JpaPagingItemReaderBuilder<Teacher>()
                 .name("processorConvertReader")
                 .entityManagerFactory(emf)
                 .pageSize(chunkSize)
-                .queryString("SELECT p FROM Pay p")
+                .queryString("SELECT p FROM Teacher p")
                 .build();
     }
 
@@ -66,15 +66,15 @@ public class ProcessorConvertJobConfiguration {
     //    Processor와 Writer는 트랜잭션 범위 안이며, Lazy Loading이 가능
 
     @Bean
-    public ItemProcessor<Pay, String> processorConvertProcessor() {
-        return pay -> {
-            boolean isIgnoreTarget = pay.getId() % 2 == 0L;
+    public ItemProcessor<Teacher, String> processorConvertProcessor() {
+        return Teacher -> {
+            boolean isIgnoreTarget = Teacher.getId() % 2 == 0L;
             if(isIgnoreTarget){
-                log.info(">>>>>>>>> Pay txName={}, isIgnoreTarget={}", pay.getTxName(), isIgnoreTarget);
+                log.info(">>>>>>>>> Teacher name={}, isIgnoreTarget={}", Teacher.getName(), isIgnoreTarget);
                 return null; //Filter  -> null return skip
             }
       
-            return pay.getTxName();
+            return Teacher.getName();
         };
     }
 
@@ -89,8 +89,8 @@ public class ProcessorConvertJobConfiguration {
     //     return processor;
     // }
 
-    // public ItemProcessor<Pay, String> processor1() {
-    //     return Pay::getTxName;
+    // public ItemProcessor<Teacher, String> processor1() {
+    //     return Teacher::getName;
     // }
 
     // public ItemProcessor<String, String> processor2() {
@@ -100,7 +100,7 @@ public class ProcessorConvertJobConfiguration {
     private ItemWriter<String>  processorConvertWriter() {
         return items -> {
             for (String item : items) {
-                log.info("Pay txName={}", item);
+                log.info("Teacher txName={}", item);
             }
         };
     }
