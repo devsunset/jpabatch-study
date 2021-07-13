@@ -50,6 +50,8 @@ public class ProcessorConvertJobConfiguration {
         return stepBuilderFactory.get("initDataStep")
                 .tasklet((contribution, chunkContext) -> {
 
+                    teacherRepository.deleteAll();
+                    
                     Teacher teacher1=  new Teacher("Teacher1", "java");
                     teacher1.addStudent(new Student("abc1"));
 
