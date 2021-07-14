@@ -46,7 +46,7 @@ public class ProcessorConvertJobConfiguration {
     @Bean
     @JobScope
     public Step initDataStep() {
-        log.info(" INIT DATA =============================================");
+        log.info(" ProcessorConvertJobConfiguration INIT DATA =============================================");
         return stepBuilderFactory.get("initDataStep")
                 .tasklet((contribution, chunkContext) -> {
 

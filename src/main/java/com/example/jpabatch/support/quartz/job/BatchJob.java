@@ -7,6 +7,7 @@ import com.example.jpabatch.sample.job.JdbcCursorItemReaderJobConfiguration;
 import com.example.jpabatch.sample.job.JdbcPagingItemReaderJobConfiguration;
 import com.example.jpabatch.sample.job.JpaItemWriterJobConfiguration;
 import com.example.jpabatch.sample.job.JpaPagingItemReaderJobConfiguration;
+import com.example.jpabatch.sample.job.MultiThreadPagingConfiguration;
 import com.example.jpabatch.sample.job.ProcessorConvertJobConfiguration;
 import com.example.jpabatch.sample.job.SimpleJobConfiguration;
 import com.example.jpabatch.sample.job.StepNextConditionalJobConfiguration;
@@ -56,6 +57,8 @@ public class BatchJob extends QuartzJobBean implements InterruptableJob {
     private CustomItemWriterJobConfiguration customItemWriterJobConfiguration;
     @Autowired
     private ProcessorConvertJobConfiguration processorConvertJobConfiguration;
+    @Autowired
+    private MultiThreadPagingConfiguration multiThreadPagingConfiguration;
     
 	@Override
 	public void interrupt() throws UnableToInterruptJobException {
@@ -66,6 +69,7 @@ public class BatchJob extends QuartzJobBean implements InterruptableJob {
 	
         JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
         jobParametersBuilder.addString("reqSeq", System.currentTimeMillis()+"-Quartz");
+        jobParametersBuilder.addString("createDate", "2021-07-14");
 
         try {
             log.info("--------------------- batch execute ------------");
@@ -84,6 +88,7 @@ public class BatchJob extends QuartzJobBean implements InterruptableJob {
             jobLauncher.run(jpaItemWriterJobConfiguration.jpaItemWriterJob(), jobParametersBuilder.toJobParameters());
             jobLauncher.run(customItemWriterJobConfiguration.customItemWriterJob(), jobParametersBuilder.toJobParameters());
             jobLauncher.run(processorConvertJobConfiguration.processorConvertJob(), jobParametersBuilder.toJobParameters());
+            jobLauncher.run(multiThreadPagingConfiguration.job(), jobParametersBuilder.toJobParameters());
         } catch (JobExecutionAlreadyRunningException | JobInstanceAlreadyCompleteException
                 | JobParametersInvalidException | JobRestartException e) {
             log.error(e.getMessage());

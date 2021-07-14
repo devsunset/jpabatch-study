@@ -9,7 +9,7 @@ spring:
     datasource:
         driver-class-name: org.h2.Driver
         hikari:
-            maximum-pool-size: 4
+            maximum-pool-size: 30
         password: ''
         url: jdbc:h2:~/temp/jpabatch-work;
         username: sa
@@ -53,14 +53,14 @@ logging:
                 springwork:
                     dao:
                         mapper: TRACE
-        jdbc: error
+        jdbc: debug
         org:
             hibernate:
-                SQL: 'off'
+                SQL: 'DEBUG'
             springframework:
                 web: "debug\t\t"
                 batch: DEBUG
-        sql: error
+        sql: debug
     logback:
         rollingpolicy:
             file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}-%i.log

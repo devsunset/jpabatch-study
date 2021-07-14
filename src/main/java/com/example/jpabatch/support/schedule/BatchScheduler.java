@@ -7,6 +7,7 @@ import com.example.jpabatch.sample.job.JdbcCursorItemReaderJobConfiguration;
 import com.example.jpabatch.sample.job.JdbcPagingItemReaderJobConfiguration;
 import com.example.jpabatch.sample.job.JpaItemWriterJobConfiguration;
 import com.example.jpabatch.sample.job.JpaPagingItemReaderJobConfiguration;
+import com.example.jpabatch.sample.job.MultiThreadPagingConfiguration;
 import com.example.jpabatch.sample.job.ProcessorConvertJobConfiguration;
 import com.example.jpabatch.sample.job.SimpleJobConfiguration;
 import com.example.jpabatch.sample.job.StepNextConditionalJobConfiguration;
@@ -55,17 +56,20 @@ public class BatchScheduler {
     private CustomItemWriterJobConfiguration customItemWriterJobConfiguration;
     @Autowired
     private ProcessorConvertJobConfiguration processorConvertJobConfiguration;
+    @Autowired
+    private MultiThreadPagingConfiguration multiThreadPagingConfiguration;
 
 
     // @Scheduled(fixedDelay = 1000)                                                    // scheduler 끝나는 시간 기준으로 1000 간격으로 실행
     // @Scheduled(fixedRate = 1000)                                                     // scheduler 시작하는 시간 기준으로 1000 간격으로 실행
     // @Scheduled(cron = "0 15 10 15 * ?")                                          // cron에 따라 실행
     // @Scheduled(cron = "0 15 10 15 * ?", zone = "Europe/Paris")   // cron에 TimeZone 설정 추가
-    @Scheduled(initialDelay = 10000, fixedDelay = 90000)
+    @Scheduled(initialDelay = 90000, fixedDelay = 90000)
     public void runJob() throws Exception {
 
         JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
         jobParametersBuilder.addString("reqSeq", System.currentTimeMillis()+"-Schedule");
+        jobParametersBuilder.addString("createDate", "2021-07-14");
 
         try {
             log.info("--------------------- schedule execute ------------");
@@ -80,6 +84,7 @@ public class BatchScheduler {
             jobLauncher.run(jpaItemWriterJobConfiguration.jpaItemWriterJob(), jobParametersBuilder.toJobParameters());
             jobLauncher.run(customItemWriterJobConfiguration.customItemWriterJob(), jobParametersBuilder.toJobParameters());
             jobLauncher.run(processorConvertJobConfiguration.processorConvertJob(), jobParametersBuilder.toJobParameters());
+            jobLauncher.run(multiThreadPagingConfiguration.job(), jobParametersBuilder.toJobParameters());
         } catch (JobExecutionAlreadyRunningException | JobInstanceAlreadyCompleteException
                 | JobParametersInvalidException | JobRestartException e) {
             log.error(e.getMessage());
