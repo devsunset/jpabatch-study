@@ -10,7 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import com.example.jpabatch.sample.domain.Product;
 import com.example.jpabatch.sample.domain.ProductBackup;
 import com.example.jpabatch.sample.domain.ProductStatus;
-import com.example.jpabatch.sample.repository.ProductBackupRepository;
+import com.example.jpabatch.sample.repository.ProductBackupRepository; 
 import com.example.jpabatch.sample.repository.ProductRepository;
 
 import org.springframework.batch.core.Job;

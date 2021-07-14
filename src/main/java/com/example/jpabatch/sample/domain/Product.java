@@ -17,10 +17,10 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.LocalDate;
+import java.time.LocalDate; 
 
 @Getter
-@Setter
+@Setter 
 @NoArgsConstructor
 @Entity
 @Table(indexes = { @Index(name = "idx_product_1", columnList = "store_id") })
