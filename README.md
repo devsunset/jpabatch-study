@@ -26,6 +26,7 @@ https://github.com/jojoldu/spring-batch-in-action
 10. CustomItemWriterJobConfiguration
 11. ProcessorConvertJobConfiguration
 12. MultiThreadPagingConfiguration
+13. MultiThreadCursorConfiguration
 
 ### Spring Batch Link
 https://cchoimin.tistory.com/entry/spring-batch-%EB%A7%81%ED%81%AC%EB%AA%A8%EC%9D%8C-%EB%B9%84%EA%B3%B5%EA%B0%9C

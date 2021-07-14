@@ -7,6 +7,7 @@ import com.example.jpabatch.sample.job.JdbcCursorItemReaderJobConfiguration;
 import com.example.jpabatch.sample.job.JdbcPagingItemReaderJobConfiguration;
 import com.example.jpabatch.sample.job.JpaItemWriterJobConfiguration;
 import com.example.jpabatch.sample.job.JpaPagingItemReaderJobConfiguration;
+import com.example.jpabatch.sample.job.MultiThreadCursorConfiguration;
 import com.example.jpabatch.sample.job.MultiThreadPagingConfiguration;
 import com.example.jpabatch.sample.job.ProcessorConvertJobConfiguration;
 import com.example.jpabatch.sample.job.SimpleJobConfiguration;
@@ -58,6 +59,8 @@ public class BatchScheduler {
     private ProcessorConvertJobConfiguration processorConvertJobConfiguration;
     @Autowired
     private MultiThreadPagingConfiguration multiThreadPagingConfiguration;
+    @Autowired
+    private MultiThreadCursorConfiguration multiThreadCursorConfiguration;
 
 
     // @Scheduled(fixedDelay = 1000)                                                    // scheduler 끝나는 시간 기준으로 1000 간격으로 실행
@@ -85,6 +88,7 @@ public class BatchScheduler {
             jobLauncher.run(customItemWriterJobConfiguration.customItemWriterJob(), jobParametersBuilder.toJobParameters());
             jobLauncher.run(processorConvertJobConfiguration.processorConvertJob(), jobParametersBuilder.toJobParameters());
             jobLauncher.run(multiThreadPagingConfiguration.job(), jobParametersBuilder.toJobParameters());
+            jobLauncher.run(multiThreadCursorConfiguration.job(), jobParametersBuilder.toJobParameters());
         } catch (JobExecutionAlreadyRunningException | JobInstanceAlreadyCompleteException
                 | JobParametersInvalidException | JobRestartException e) {
             log.error(e.getMessage());
