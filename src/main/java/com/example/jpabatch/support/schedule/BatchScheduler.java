@@ -2,6 +2,7 @@ package com.example.jpabatch.support.schedule;
 
 import com.example.jpabatch.sample.job.CustomItemWriterJobConfiguration;
 import com.example.jpabatch.sample.job.DeciderJobConfiguration;
+import com.example.jpabatch.sample.job.FileItemReadWriterJdbcJobConfiguration;
 import com.example.jpabatch.sample.job.JdbcBatchItemWriterJobConfiguration;
 import com.example.jpabatch.sample.job.JdbcCursorItemReaderJobConfiguration;
 import com.example.jpabatch.sample.job.JdbcPagingItemReaderJobConfiguration;
@@ -64,6 +65,8 @@ public class BatchScheduler {
     private MultiThreadCursorConfiguration multiThreadCursorConfiguration;
     @Autowired
     private PartitionLocalConfiguration partitionLocalConfiguration;
+    @Autowired
+    private FileItemReadWriterJdbcJobConfiguration fileItemReadWriterJdbcJobConfiguration;
 
 
     // @Scheduled(fixedDelay = 1000)                                                    // scheduler 끝나는 시간 기준으로 1000 간격으로 실행
@@ -95,6 +98,7 @@ public class BatchScheduler {
             jobLauncher.run(multiThreadPagingConfiguration.job(), jobParametersBuilder.toJobParameters());
             jobLauncher.run(multiThreadCursorConfiguration.job(), jobParametersBuilder.toJobParameters());
             jobLauncher.run(partitionLocalConfiguration.job(), jobParametersBuilder.toJobParameters());
+            jobLauncher.run(fileItemReadWriterJdbcJobConfiguration.fileItemReadWriterJdbcJob(), jobParametersBuilder.toJobParameters());
         } catch (JobExecutionAlreadyRunningException | JobInstanceAlreadyCompleteException
                 | JobParametersInvalidException | JobRestartException e) {
             log.error(e.getMessage());

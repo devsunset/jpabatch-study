@@ -2,6 +2,7 @@ package com.example.jpabatch.support.quartz.job;
 
 import com.example.jpabatch.sample.job.CustomItemWriterJobConfiguration;
 import com.example.jpabatch.sample.job.DeciderJobConfiguration;
+import com.example.jpabatch.sample.job.FileItemReadWriterJdbcJobConfiguration;
 import com.example.jpabatch.sample.job.JdbcBatchItemWriterJobConfiguration;
 import com.example.jpabatch.sample.job.JdbcCursorItemReaderJobConfiguration;
 import com.example.jpabatch.sample.job.JdbcPagingItemReaderJobConfiguration;
@@ -65,6 +66,8 @@ public class BatchJob extends QuartzJobBean implements InterruptableJob {
     private MultiThreadCursorConfiguration multiThreadCursorConfiguration;
     @Autowired
     private PartitionLocalConfiguration partitionLocalConfiguration;
+    @Autowired
+    private FileItemReadWriterJdbcJobConfiguration fileItemReadWriterJdbcJobConfiguration;
     
 
     
@@ -102,6 +105,7 @@ public class BatchJob extends QuartzJobBean implements InterruptableJob {
             jobLauncher.run(multiThreadPagingConfiguration.job(), jobParametersBuilder.toJobParameters());
             jobLauncher.run(multiThreadCursorConfiguration.job(), jobParametersBuilder.toJobParameters());
             jobLauncher.run(partitionLocalConfiguration.job(), jobParametersBuilder.toJobParameters());
+            jobLauncher.run(fileItemReadWriterJdbcJobConfiguration.fileItemReadWriterJdbcJob(), jobParametersBuilder.toJobParameters());
         } catch (JobExecutionAlreadyRunningException | JobInstanceAlreadyCompleteException
                 | JobParametersInvalidException | JobRestartException e) {
             log.error(e.getMessage());

@@ -45,6 +45,7 @@ public class JpabatchApplication {
         Job job12= (Job) ctx.getBean("multiThreadPagingBatch");
         Job job13= (Job) ctx.getBean("multiThreadCursorBatch");
         Job job14= (Job) ctx.getBean("partitionLocalBatch");
+        Job job15= (Job) ctx.getBean("fileItemReadWriterJdbcJob");
 
         jobLauncher.run(job1,getJobParameters());
         jobLauncher.run(job2,getJobParameters());
@@ -60,6 +61,7 @@ public class JpabatchApplication {
         jobLauncher.run(job12,getJobParameters());
         jobLauncher.run(job13,getJobParameters());
         jobLauncher.run(job14,getJobParameters());
+        jobLauncher.run(job15,getJobParameters());
     }
 
 }
