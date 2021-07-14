@@ -22,6 +22,8 @@ public class JpabatchApplication {
         JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
         jobParametersBuilder.addString("reqSeq", System.currentTimeMillis()+"-Main");
         jobParametersBuilder.addString("createDate", "2021-07-14");
+        jobParametersBuilder.addString("startDate", "2021-07-14");
+        jobParametersBuilder.addString("endDate", "2021-07-14");
         return jobParametersBuilder.toJobParameters();
     }
 
@@ -42,6 +44,7 @@ public class JpabatchApplication {
         Job job11= (Job) ctx.getBean("processorConvertJob");
         Job job12= (Job) ctx.getBean("multiThreadPagingBatch");
         Job job13= (Job) ctx.getBean("multiThreadCursorBatch");
+        Job job14= (Job) ctx.getBean("partitionLocalBatch");
 
         jobLauncher.run(job1,getJobParameters());
         jobLauncher.run(job2,getJobParameters());
@@ -56,6 +59,7 @@ public class JpabatchApplication {
         jobLauncher.run(job11,getJobParameters());
         jobLauncher.run(job12,getJobParameters());
         jobLauncher.run(job13,getJobParameters());
+        jobLauncher.run(job14,getJobParameters());
     }
 
 }

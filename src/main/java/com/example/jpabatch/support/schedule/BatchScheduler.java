@@ -9,6 +9,7 @@ import com.example.jpabatch.sample.job.JpaItemWriterJobConfiguration;
 import com.example.jpabatch.sample.job.JpaPagingItemReaderJobConfiguration;
 import com.example.jpabatch.sample.job.MultiThreadCursorConfiguration;
 import com.example.jpabatch.sample.job.MultiThreadPagingConfiguration;
+import com.example.jpabatch.sample.job.PartitionLocalConfiguration;
 import com.example.jpabatch.sample.job.ProcessorConvertJobConfiguration;
 import com.example.jpabatch.sample.job.SimpleJobConfiguration;
 import com.example.jpabatch.sample.job.StepNextConditionalJobConfiguration;
@@ -61,6 +62,8 @@ public class BatchScheduler {
     private MultiThreadPagingConfiguration multiThreadPagingConfiguration;
     @Autowired
     private MultiThreadCursorConfiguration multiThreadCursorConfiguration;
+    @Autowired
+    private PartitionLocalConfiguration partitionLocalConfiguration;
 
 
     // @Scheduled(fixedDelay = 1000)                                                    // scheduler 끝나는 시간 기준으로 1000 간격으로 실행
@@ -73,6 +76,8 @@ public class BatchScheduler {
         JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
         jobParametersBuilder.addString("reqSeq", System.currentTimeMillis()+"-Schedule");
         jobParametersBuilder.addString("createDate", "2021-07-14");
+        jobParametersBuilder.addString("startDate", "2021-07-14");
+        jobParametersBuilder.addString("endDate", "2021-07-14");
 
         try {
             log.info("--------------------- schedule execute ------------");
@@ -89,6 +94,7 @@ public class BatchScheduler {
             jobLauncher.run(processorConvertJobConfiguration.processorConvertJob(), jobParametersBuilder.toJobParameters());
             jobLauncher.run(multiThreadPagingConfiguration.job(), jobParametersBuilder.toJobParameters());
             jobLauncher.run(multiThreadCursorConfiguration.job(), jobParametersBuilder.toJobParameters());
+            jobLauncher.run(partitionLocalConfiguration.job(), jobParametersBuilder.toJobParameters());
         } catch (JobExecutionAlreadyRunningException | JobInstanceAlreadyCompleteException
                 | JobParametersInvalidException | JobRestartException e) {
             log.error(e.getMessage());
