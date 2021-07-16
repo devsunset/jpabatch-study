@@ -39,8 +39,8 @@ public class QuartzConfig {
                 scheduler.deleteJob(batchJobDetail.getKey());
             }
 
-			scheduler.scheduleJob(testJobDetail, buildJobTrigger("* * * * * ?"));
-            scheduler.scheduleJob(batchJobDetail, buildJobTrigger("0 0/5 * * * ?"));
+			scheduler.scheduleJob(testJobDetail, buildJobTrigger("* 1 * * * ?"));
+            scheduler.scheduleJob(batchJobDetail, buildJobTrigger("0 1 * * * ?"));
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
