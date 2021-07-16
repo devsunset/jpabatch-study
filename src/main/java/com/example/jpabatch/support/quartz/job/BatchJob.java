@@ -16,6 +16,7 @@ import com.example.jpabatch.sample.job.SimpleJobConfiguration;
 import com.example.jpabatch.sample.job.StepNextConditionalJobConfiguration;
 import com.example.jpabatch.sample.job.StepNextJobConfiguration;
 
+import lombok.RequiredArgsConstructor;
 import org.quartz.InterruptableJob;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -33,44 +34,25 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class BatchJob extends QuartzJobBean implements InterruptableJob {
 
-    @Autowired
-    private JobLauncher jobLauncher;
-
-    @Autowired
-    private SimpleJobConfiguration simpleJobConfiguration;
-    @Autowired
-    private StepNextJobConfiguration stepNextJobConfiguration;
-    @Autowired
-    private StepNextConditionalJobConfiguration stepNextConditionalJobConfiguration;
-    @Autowired
-    private DeciderJobConfiguration deciderJobConfiguration;
-    @Autowired
-    private JdbcCursorItemReaderJobConfiguration jdbcCursorItemReaderJobConfiguration;
-    @Autowired
-    private JdbcPagingItemReaderJobConfiguration jdbcPagingItemReaderJobConfiguration;
-    @Autowired
-    private JpaPagingItemReaderJobConfiguration jpaPagingItemReaderJobConfiguration;
-    @Autowired
-    private JdbcBatchItemWriterJobConfiguration jdbcBatchItemWriterJobConfiguration;
-    @Autowired
-    private JpaItemWriterJobConfiguration jpaItemWriterJobConfiguration;
-    @Autowired
-    private CustomItemWriterJobConfiguration customItemWriterJobConfiguration;
-    @Autowired
-    private ProcessorConvertJobConfiguration processorConvertJobConfiguration;
-    @Autowired
-    private MultiThreadPagingConfiguration multiThreadPagingConfiguration;
-    @Autowired
-    private MultiThreadCursorConfiguration multiThreadCursorConfiguration;
-    @Autowired
-    private PartitionLocalConfiguration partitionLocalConfiguration;
-    @Autowired
-    private FileItemReadWriterJdbcJobConfiguration fileItemReadWriterJdbcJobConfiguration;
-    
-
-    
+    private final JobLauncher jobLauncher;
+    private final SimpleJobConfiguration simpleJobConfiguration;
+    private final StepNextJobConfiguration stepNextJobConfiguration;
+    private final StepNextConditionalJobConfiguration stepNextConditionalJobConfiguration;
+    private final DeciderJobConfiguration deciderJobConfiguration;
+    private final JdbcCursorItemReaderJobConfiguration jdbcCursorItemReaderJobConfiguration;
+    private final JdbcPagingItemReaderJobConfiguration jdbcPagingItemReaderJobConfiguration;
+    private final JpaPagingItemReaderJobConfiguration jpaPagingItemReaderJobConfiguration;
+    private final JdbcBatchItemWriterJobConfiguration jdbcBatchItemWriterJobConfiguration;
+    private final JpaItemWriterJobConfiguration jpaItemWriterJobConfiguration;
+    private final CustomItemWriterJobConfiguration customItemWriterJobConfiguration;
+    private final ProcessorConvertJobConfiguration processorConvertJobConfiguration;
+    private final MultiThreadPagingConfiguration multiThreadPagingConfiguration;
+    private final MultiThreadCursorConfiguration multiThreadCursorConfiguration;
+    private final PartitionLocalConfiguration partitionLocalConfiguration;
+    private final FileItemReadWriterJdbcJobConfiguration fileItemReadWriterJdbcJobConfiguration;
     
 	@Override
 	public void interrupt() throws UnableToInterruptJobException {
