@@ -63,6 +63,5 @@ public class JpabatchApplication {
         jobLauncher.run(job14,getJobParameters());
         jobLauncher.run(job15,getJobParameters());
     }
-
 }
  
