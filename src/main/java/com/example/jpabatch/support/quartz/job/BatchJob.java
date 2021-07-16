@@ -16,7 +16,6 @@ import com.example.jpabatch.sample.job.SimpleJobConfiguration;
 import com.example.jpabatch.sample.job.StepNextConditionalJobConfiguration;
 import com.example.jpabatch.sample.job.StepNextJobConfiguration;
 
-import lombok.RequiredArgsConstructor;
 import org.quartz.InterruptableJob;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -27,9 +26,10 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
+
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
