@@ -1,34 +1,17 @@
 package com.example.jpabatch.support.schedule;
 
-import com.example.jpabatch.sample.job.CustomItemWriterJobConfiguration;
-import com.example.jpabatch.sample.job.DeciderJobConfiguration;
-import com.example.jpabatch.sample.job.FileItemReadWriterJdbcJobConfiguration;
-import com.example.jpabatch.sample.job.JdbcBatchItemWriterJobConfiguration;
-import com.example.jpabatch.sample.job.JdbcCursorItemReaderJobConfiguration;
-import com.example.jpabatch.sample.job.JdbcPagingItemReaderJobConfiguration;
-import com.example.jpabatch.sample.job.JpaItemWriterJobConfiguration;
-import com.example.jpabatch.sample.job.JpaPagingItemReaderJobConfiguration;
-import com.example.jpabatch.sample.job.MultiThreadCursorConfiguration;
-import com.example.jpabatch.sample.job.MultiThreadPagingConfiguration;
-import com.example.jpabatch.sample.job.PartitionLocalConfiguration;
-import com.example.jpabatch.sample.job.ProcessorConvertJobConfiguration;
-import com.example.jpabatch.sample.job.SimpleJobConfiguration;
-import com.example.jpabatch.sample.job.StepNextConditionalJobConfiguration;
-import com.example.jpabatch.sample.job.StepNextJobConfiguration;
-
+import com.example.jpabatch.sample.job.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
@@ -56,9 +39,9 @@ public class BatchScheduler {
 
     // @Scheduled(fixedDelay = 1000)                                                    // scheduler 끝나는 시간 기준으로 1000 간격으로 실행
     // @Scheduled(fixedRate = 1000)                                                     // scheduler 시작하는 시간 기준으로 1000 간격으로 실행
-    // @Scheduled(cron = "0 15 10 15 * ?")                                          // cron에 따라 실행
-    // @Scheduled(cron = "0 15 10 15 * ?", zone = "Europe/Paris")   // cron에 TimeZone 설정 추가
-    @Scheduled(initialDelay = 90000, fixedDelay = 90000)
+    // @Scheduled(cron = "0 15 10 15 * ?")                           // cron 에 따라 실행
+    // @Scheduled(cron = "0 15 10 15 * ?", zone = "Europe/Paris")   // cron 에 TimeZone 설정 추가
+    @Scheduled(cron = "0/20 * * * * ?")
     public void runJob() throws Exception {
 
         JobParametersBuilder jobParametersBuilder = new JobParametersBuilder();
