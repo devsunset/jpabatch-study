@@ -8,7 +8,7 @@
 # Spring JPA Reference
 https://docs.spring.io/spring-data/jpa/docs/2.5.3/reference/html
 
-https://github.com/cheese10yun/spring-jpa-best-practices
+https://data-make.tistory.com/649?category=453633
 
 ### Spring JPA Example Source
 https://github.com/holyeye/jpabook
