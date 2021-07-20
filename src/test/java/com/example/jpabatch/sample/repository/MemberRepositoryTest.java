@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // Junit5 Reference
 // https://hirlawldo.tistory.com/m/39
+
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 class MemberRepositoryTest {
