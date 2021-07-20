@@ -1,4 +1,4 @@
-package com.example.jpabatch.jpabatch;
+package com.example.jpabatch;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
