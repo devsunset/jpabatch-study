@@ -113,6 +113,82 @@ public class Member {
     - 프로퍼티 접근: AccessType.PROPERTY 로 지정
     접근자 Getter를 사용
    */
+
+    /*
+    @ManyToOne
+    다대일(N:1) 관계 매핑 정보 연관관계 매핑 시 다중성 어노테이션은 필수
+
+    optional : false 설정 시 연관된 엔티티가 항상 있어야 함. (default. true)
+                - EAGER 설정의 조인 전략
+                @ManyToOne, @OneToOne
+                    - (optional = false) : 내부 조인
+                    - (optional = true) : 외부 조인
+                @OneToMany, @ManyToMany
+                    - (optional = false) : 외부 조인
+                    - (optional = true) : 외부 조인
+
+    fetch : global fetch 전략 설정
+                @ManyToOne, @OneToOne(fetch = FetchType.EAGER) "즉시 로딩"
+                    - 엔티티를 조회할 때 연관된 엔티티도 함께 조회
+                    - 연관된 엔티티를 즉시 조회, hibernate는 가능하면 SQL 조인을 사용해서 한 번에 조회
+                    - 객체가 계속 연결되어있을 경우 무한루프로 stack overflow 가능성..
+                @OneToMany, ManyToMany(fetch = FetchType.LAZY) "지연 로딩"
+                    - 연관된 엔티티를 프록시로 조회, 프록시를 실제 사용할 때 초기화하면서 데이터베이스 조회
+                    - 프록시 객체 : 지연 로딩 기능을 위해 실제 엔티티 객체 대신 데이터베이스 조회를 지연할 수 있는 가짜 객체
+
+    cascade : 영속성 전이 기능 사용
+                @OneToMany(mappedBy = "parent", cascade = CascadeType.PERSIST)
+                    - 부모를 영속화할 때 연관된 자식들도 함께 영속화
+                    - 부모 엔티티를 저장할 때 자식 엔티티도 함께 저장
+                    , cascade = CascadeType.REMOVE
+                    - 부모 엔티티만 삭제하면 연관된 자식 엔티티도 함께 삭제
+                    - CasecadeType 의 다양한 옵션
+                    ALL,  // 모두 적용
+                    PERSIST,  // 영속
+                    MERGE,  // 병합
+                    REMOVE,  // 삭제
+                    REFRESH,
+                    DETACH
+
+    orphanRemoval : 부모 엔티티의 컬렉션에서 자식 엔티티의 참조만 제거하면 자식 엔티티가 자동으로 삭제(true)
+                    - 참조하는 곳이 하나일 때만 사용 --> @OneToOne, @OneToMany
+                    - CascadeType.Remove 설정과 동일
+
+    * cascadeType.All + orphanRemoval = true 일 경우, 부모 엔티티를 통해서 자식의 생명주기를 관리할 수 있음.
+                    - 자식을 저장하려면 부모에 등록(CASECADE)
+                    - 자식을 삭제하려면 부모에서 제거(removeObject)
+
+
+    @JoinColumn(name="TEAM_ID")
+    외래 키 매핑
+    name : 매핑할 외래 키 이름
+           default. [필드명]_[참조하는 테이블의 기본키 컬럼명]
+    referencedColumnName : 외래 키가 참조하는 대상 테이블의 컬럼명
+           default. 참조하는 테이블의 기본 키 컬럼명
+    foreignKey (DDL) : 외래 키 제약조건을 직접 지정 (테이블 생성시에만 사용)
+    unique    : @Column 속성과 동일
+    nullable
+    insertable
+    updatable
+    columnDefinition
+    table
+    * @JoinColumn 생략 시 외래 키를 찾을 때 기본 전략을 사용
+        [필드명]_[참조하는 테이블의 컬럼명]
+     */
+    @ManyToOne
+    @JoinColumn(name="TEAM_ID")
+    private Team team;
+
+    // 연관관계 설정
+    public void setTeam(Team team) {
+        // 기존 팀과 관계를 제거
+        if (this.team != null) {
+            this.team.getMembers().remove(this);
+        }
+        this.team = team;
+        team.getMembers().add(this);
+    }
+
 }
 
 enum RoleType {
