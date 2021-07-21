@@ -51,7 +51,7 @@ public class Member {
     */
     // 기본키 매핑
     @Id
-    @Column(name = "ID")
+    @Column(name = "MEMBER_ID")
     private String id;
 
     /*

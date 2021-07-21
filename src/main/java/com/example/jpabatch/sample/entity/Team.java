@@ -3,10 +3,7 @@ package com.example.jpabatch.sample.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +12,9 @@ import java.util.List;
 @Setter
 public class Team {
     @Id
+    @GeneratedValue
     @Column(name = "TEAM_ID")
-    private String id;
+    private Long id;
 
     private String name;
 
@@ -46,5 +44,13 @@ public class Team {
     */
     @OneToMany(mappedBy = "team") // 연관관계의 주인이 아님 연관관계의 주인은 Member.team
     private List<Member> members = new ArrayList<Member>();
+
+    public void addMember(Member member) {
+        this.members.add(member);
+        // 무한루프 방지
+        if (member.getTeam() != this) {
+            member.setTeam(this);
+        }
+    }
 }
 
