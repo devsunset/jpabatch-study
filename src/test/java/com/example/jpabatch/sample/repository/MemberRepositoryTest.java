@@ -23,22 +23,25 @@ class MemberRepositoryTest {
 
     @Test
     public void test() {
-        String id = "id1";
+        String email = "devsunset@gmail.com";
         Member member = new Member();
-        member.setId(id);
-        member.setUsername("test");
-        member.setAge(1);
+        member.setEmail(email);
+        member.setNickName("devsunset");
+        member.setBirthYear(1978);
 
         Member savedMember = memberRepository.save(member);
-        assertEquals(member.getUsername(), savedMember.getUsername());
+        assertEquals(member.getEmail(), savedMember.getEmail());
 
-        member.setAge(2);
+        member.setGithub("https://github.com/devsunset");
         savedMember = memberRepository.save(member);
-        assertEquals(2, savedMember.getAge());
+        assertEquals("https://github.com/devsunset", savedMember.getGithub());
 
         List<Member> findMember = memberRepository.findAll();
         if(!findMember.isEmpty()){
-            System.out.println("findMember=" + findMember.get(0).getUsername() + ", age=" + findMember.get(0).getAge());
+            System.out.println("findMember=" + findMember.get(0).toString());
+            System.out.println("findMember createdDate = " + findMember.get(0).getCreatedDate());
+            System.out.println("findMember modifiedDate = " + findMember.get(0).getModifiedDate());
         }
+
     }
 }
