@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class Member extends BaseTimeEntity {
+public class Member extends BaseEntity {
     @Id
     private String email;
 

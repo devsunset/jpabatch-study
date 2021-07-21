@@ -11,12 +11,15 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class MemberTechInventory extends BaseTimeEntity {
+public class MemberStudy extends BaseEntity {
 
     @Id
-    @Column(name = "MEMBER_TECH_INVENTORY_ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    private Long memberStudyId;
+
+    private String email;
+
+    private Long studyId;
 
     // To-Do - Add Field
 }
