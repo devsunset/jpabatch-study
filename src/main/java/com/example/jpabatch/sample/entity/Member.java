@@ -23,14 +23,16 @@ public class Member extends BaseTimeEntity {
 
     private String github;
 
-    @Enumerated(EnumType.STRING)
-    private GenderType genderType;
-
     @Lob
     private String introduce;
 
     @Enumerated(EnumType.STRING)
-    private RoleType roleType;
+    private GenderType genderType;
+
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType = RoleType.USER;
+
+    // To-Do - Add Field
 }
 
 enum GenderType{
