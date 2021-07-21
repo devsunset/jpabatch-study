@@ -1,6 +1,5 @@
 package com.example.jpabatch.sample.entity;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class TechInventory extends BaseTimeEntity {
+public class MemberJoinStudy extends BaseTimeEntity {
 
     @Id
     @Column(name = "ID")
