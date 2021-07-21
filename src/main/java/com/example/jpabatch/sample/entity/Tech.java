@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Tech extends BaseTimeEntity {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "TECH_ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 

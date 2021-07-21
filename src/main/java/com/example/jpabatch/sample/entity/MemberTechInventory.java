@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class MemberTechInventory extends BaseTimeEntity {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "MEMBER_TECH_INVENTORY_ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
