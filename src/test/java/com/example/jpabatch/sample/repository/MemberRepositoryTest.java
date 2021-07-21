@@ -21,6 +21,7 @@ class MemberRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
 
+
     @Test
     public void test() {
         String email = "devsunset@gmail.com";
@@ -32,13 +33,22 @@ class MemberRepositoryTest {
         Member savedMember = memberRepository.save(member);
         assertEquals(member.getEmail(), savedMember.getEmail());
 
-        member.setGithub("https://github.com/devsunset");
-        savedMember = memberRepository.save(member);
+        System.out.println("savedMember createdDate = " + savedMember.getCreatedDate());
+        System.out.println("savedMember modifiedDate = " + savedMember.getModifiedDate());
+
+        Member findByEmail = memberRepository.findByEmail(email);
+        System.out.println("findByEmail = " + findByEmail.toString());
+        System.out.println("findByEmail createdDate = " + findByEmail.getCreatedDate());
+        System.out.println("findByEmail modifiedDate = " + findByEmail.getModifiedDate());
+
+        findByEmail.setGithub("https://github.com/devsunset");
+        savedMember = memberRepository.save(findByEmail);
         assertEquals("https://github.com/devsunset", savedMember.getGithub());
+
 
         List<Member> findMember = memberRepository.findAll();
         if(!findMember.isEmpty()){
-            System.out.println("findMember=" + findMember.get(0).toString());
+            System.out.println("findMember = " + findMember.get(0).toString());
             System.out.println("findMember createdDate = " + findMember.get(0).getCreatedDate());
             System.out.println("findMember modifiedDate = " + findMember.get(0).getModifiedDate());
         }
