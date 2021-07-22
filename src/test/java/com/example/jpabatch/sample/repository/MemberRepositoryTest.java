@@ -10,6 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,6 +41,9 @@ class MemberRepositoryTest {
 
     @Autowired
     private MemberStudyRepository memberStudyRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Test
     @Transactional
@@ -66,13 +73,15 @@ class MemberRepositoryTest {
         assertEquals("https://github.com/devsunset", savedMember.getGithub());
 
         List<Member> findMember = memberRepository.findAll();
-        if(!findMember.isEmpty()){
-            log.info("findMember = " + findMember.get(0).toString());
-            log.info("findMember createdDate = " + findMember.get(0).getCreatedDate());
-            log.info("findMember modifiedDate = " + findMember.get(0).getModifiedDate());
+        for (Member memberentity : findMember) {
+            System.out.println("member = " + member);
+
+            log.info("findMember = " + memberentity.toString());
+            log.info("findMember createdDate = " + memberentity.getCreatedDate());
+            log.info("findMember modifiedDate = " + memberentity.getModifiedDate());
 
             //Delete
-            memberRepository.delete(findMember.get(0));
+            memberRepository.delete(memberentity);
 
             List<Member> findMemberSub = memberRepository.findAll();
             log.info(" findMemberSub size : "+findMemberSub.size());
@@ -116,5 +125,36 @@ class MemberRepositoryTest {
         MemberStudy savedMemberStudy = memberStudyRepository.save(memberStudy);
         assertEquals(memberStudy.getMember(), savedMemberStudy.getMember());
         assertEquals(memberStudy.getStudy(), savedMemberStudy.getStudy());
+
+        List<Member> findMember = memberRepository.findAll();
+        for (Member memberentity : findMember) {
+            log.info("findMember = " + memberentity.toString());
+            log.info("findMember createdDate = " + memberentity.getCreatedDate());
+            log.info("findMember modifiedDate = " + memberentity.getModifiedDate());
+        }
+
+        String jpql = "select m from Member as m where m.email = 'devsunset@gmail.com'";
+        List<Member> resultList = entityManager.createQuery(jpql, Member.class).getResultList();
+        for (Member memberentity : resultList) {
+            log.info("findMember = " + memberentity.toString());
+            log.info("findMember createdDate = " + memberentity.getCreatedDate());
+            log.info("findMember modifiedDate = " + memberentity.getModifiedDate());
+        }
+
+        TypedQuery<Member> query = entityManager.createQuery("SELECT m FROM Member m", Member.class);
+        List<Member> resultList1 = query.getResultList();
+        for (Member memberentity : resultList1) {
+            log.info("findMember = " + memberentity.toString());
+        }
+
+        Query querySub = entityManager.createQuery("SELECT m.email, m.birthYear FROM Member m");
+
+        List resultList2 = querySub.getResultList();
+        for (Object o : resultList2) {
+            Object[] result = (Object[]) o;
+            log.info("email = " + result[0]);
+            log.info("birthYear = " + result[1]);
+        }
+
     }
 }
