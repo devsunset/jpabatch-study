@@ -17,7 +17,12 @@ spring:
         generate-ddl: true
         hibernate:
             ddl-auto: create-drop
-        show-sql: true
+        properties:
+            hibernate:
+                show_sql : true
+                format_sql: true
+                use_sql_comments: true
+
     sql:
         init:
             platform: h2
@@ -53,14 +58,20 @@ logging:
                 springwork:
                     dao:
                         mapper: TRACE
+            zaxxer:
+                hikari: TRACE
         jdbc: debug
         org:
             hibernate:
                 SQL: 'DEBUG'
+                type:
+                    descriptor:
+                        sql : trace
             springframework:
                 web: "debug\t\t"
                 batch: DEBUG
         sql: debug
+
     logback:
         rollingpolicy:
             file-name-pattern: ${LOG_FILE}.%d{yyyy-MM-dd}-%i.log
@@ -71,4 +82,3 @@ logging:
             - %msg%n'
         file: '%-5level %d{yyyy-MM-dd HH:mm:ss}[%thread] [%F - %M] [%logger{0}:%line]
             - %msg%n'
-
