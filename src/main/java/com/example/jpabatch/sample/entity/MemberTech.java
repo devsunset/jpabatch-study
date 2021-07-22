@@ -17,9 +17,13 @@ public class MemberTech extends BaseEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long memberTechId;
 
-    private String email;
+    @ManyToOne
+    @JoinColumn(name = "email")
+    private Member member;
 
-    private Long techId;
+    @ManyToOne
+    @JoinColumn(name = "techId")
+    private Tech tech;
 
     // To-Do - Add Field
 }

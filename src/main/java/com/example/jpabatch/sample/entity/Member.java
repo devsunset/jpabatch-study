@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -31,6 +33,12 @@ public class Member extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private RoleType roleType = RoleType.USER;
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberTech> memberTech = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<MemberStudy> memberStudy = new ArrayList<>();
 
     // To-Do - Add Field
 }

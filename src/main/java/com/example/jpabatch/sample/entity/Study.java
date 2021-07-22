@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -16,6 +18,9 @@ public class Study extends BaseEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long studyId;
+
+    @OneToMany(mappedBy = "study")
+    private List<MemberStudy> memberStudy = new ArrayList<>();
 
     // To-Do - Add Field
 }
