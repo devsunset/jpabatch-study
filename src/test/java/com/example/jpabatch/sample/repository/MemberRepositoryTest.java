@@ -141,8 +141,14 @@ class MemberRepositoryTest {
             log.info("findMember modifiedDate = " + memberentity.getModifiedDate());
         }
 
-        TypedQuery<Member> query = entityManager.createQuery("SELECT m FROM Member m", Member.class);
+        TypedQuery<Member> query = entityManager.createQuery("SELECT m FROM Member m where email = :email", Member.class);
+        query.setParameter("email", "devsunset@gmail.com");
+        query.setFirstResult(1);    // 조회 시작 위치
+        query.setMaxResults(10);    // 조회할 데이터 수
         List<Member> resultList1 = query.getResultList();
+//        query.getSingleResult() : 결과가 정확히 하나일 때 사용
+//                - 결과가 없으면 javax.persistence.NoResultException 예외 발생
+//                - 결과가 1보다 많으면 javax.persistence.NonUniqueResultException 예외 발생
         for (Member memberentity : resultList1) {
             log.info("findMember = " + memberentity.toString());
         }
