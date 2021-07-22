@@ -23,5 +23,11 @@ public class Tech extends BaseEntity {
     @OneToMany(mappedBy = "tech")
     private List<MemberTech> memberTech = new ArrayList<>();
 
+    private String category;
+
+    private String item;
+
+    private String icon;
+
     // To-Do - Add Field
 }

@@ -22,5 +22,9 @@ public class Study extends BaseEntity {
     @OneToMany(mappedBy = "study")
     private List<MemberStudy> memberStudy = new ArrayList<>();
 
+    private String subject;
+
+    private String title;
+
     // To-Do - Add Field
 }

@@ -1,6 +1,6 @@
 package com.example.jpabatch.sample.repository;
 
-import com.example.jpabatch.sample.entity.Member;
+import com.example.jpabatch.sample.entity.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -25,6 +25,18 @@ class MemberRepositoryTest {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private TechRepository techRepository;
+
+    @Autowired
+    private StudyRepository studyRepository;
+
+    @Autowired
+    private MemberTechRepository memberTechRepository;
+
+    @Autowired
+    private MemberStudyRepository memberStudyRepository;
 
     @Test
     @Transactional
@@ -65,5 +77,44 @@ class MemberRepositoryTest {
             List<Member> findMemberSub = memberRepository.findAll();
             log.info(" findMemberSub size : "+findMemberSub.size());
         }
+    }
+
+    @Test
+    @Transactional
+    public void member_complex_test() {
+        String email = "devsunset@gmail.com";
+        Member member = new Member();
+        member.setEmail(email);
+        member.setNickName("devsunset");
+        member.setBirthYear(1978);
+        Member savedMember = memberRepository.save(member);
+        assertEquals(member.getEmail(), savedMember.getEmail());
+
+        Tech tech = new Tech();
+        tech.setCategory("LANGUAGE");
+        tech.setItem("JAVA");
+        tech.setIcon("icon_location");
+        Tech saveTech = techRepository.save(tech);
+        assertEquals(tech.getItem(), saveTech.getItem());
+
+        Study study = new Study();
+        study.setSubject("programming study");
+        study.setTitle("Hello World");
+        Study savedStudy = studyRepository.save(study);
+        assertEquals(study.getTitle(), savedStudy.getTitle());
+
+        MemberTech memberTech = new MemberTech();
+        memberTech.setMember(member);
+        memberTech.setTech(tech);
+        MemberTech savedMemberTech =  memberTechRepository.save(memberTech);
+        assertEquals(memberTech.getMember(), savedMemberTech.getMember());
+        assertEquals(memberTech.getTech(), savedMemberTech.getTech());
+
+        MemberStudy memberStudy = new MemberStudy();
+        memberStudy.setMember(member);
+        memberStudy.setStudy(study);
+        MemberStudy savedMemberStudy = memberStudyRepository.save(memberStudy);
+        assertEquals(memberStudy.getMember(), savedMemberStudy.getMember());
+        assertEquals(memberStudy.getStudy(), savedMemberStudy.getStudy());
     }
 }
