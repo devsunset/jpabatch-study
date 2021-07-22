@@ -63,14 +63,14 @@ logging:
         jdbc: debug
         org:
             hibernate:
-                SQL: 'DEBUG'
+#                SQL: 'DEBUG'
                 type:
                     descriptor:
                         sql : trace
             springframework:
                 web: "debug\t\t"
                 batch: DEBUG
-        sql: debug
+#        sql: debug
 
     logback:
         rollingpolicy:

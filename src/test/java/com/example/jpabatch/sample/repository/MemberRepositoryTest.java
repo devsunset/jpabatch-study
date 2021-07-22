@@ -162,5 +162,19 @@ class MemberRepositoryTest {
             log.info("birthYear = " + result[1]);
         }
 
+        List<Object[]> result1 = entityManager.createQuery("SELECT m, t FROM Member m JOIN m.memberTech t").getResultList();
+        for (Object[] row : result1) {
+            Member memberList = (Member) row[0];
+            MemberTech memberTechList = (MemberTech) row[1];
+            log.info(memberList.toString());
+            log.info(memberTechList.toString());
+        }
+
+        List<Member> result2 = entityManager.createQuery("SELECT m FROM Member m JOIN fetch m.memberTech").getResultList();
+        for (Member memberfetch : result2 ) {
+            log.info("-------------"+memberfetch.toString());
+            log.info("-------------"+memberfetch.getEmail());
+            log.info("-------------"+memberfetch.getMemberTech().toString());
+        }
     }
 }
