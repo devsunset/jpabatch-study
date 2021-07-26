@@ -11,15 +11,15 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-public class MemberStudy extends BaseEntity {
+public class UserStudy extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long memberStudyId;
+    private Long userStudyId;
 
     @ManyToOne
     @JoinColumn(name = "email")
-    private Member member;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "studyId")

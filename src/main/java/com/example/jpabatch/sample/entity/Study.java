@@ -20,7 +20,7 @@ public class Study extends BaseEntity {
     private Long studyId;
 
     @OneToMany(mappedBy = "study")
-    private List<MemberStudy> memberStudy = new ArrayList<>();
+    private List<UserStudy> userStudy = new ArrayList<>();
 
     private String subject;
 

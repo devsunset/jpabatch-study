@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Member extends BaseEntity {
+public class User extends BaseEntity {
     @Id
     private String email;
 
@@ -34,11 +34,11 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RoleType roleType = RoleType.USER;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
-    private List<MemberTech> memberTech = new ArrayList<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<UserTech> userTech = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
-    private List<MemberStudy> memberStudy = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<UserStudy> userStudy = new ArrayList<>();
 
     // To-Do - Add Field
 }
