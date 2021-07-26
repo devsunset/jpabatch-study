@@ -1,6 +1,6 @@
-package jpabook.jpashop.repository;
+package com.example.jpabatch.sample.repository;
 
-import jpabook.jpashop.domain.item.Item;
+import com.example.jpabatch.sample.entity.item.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

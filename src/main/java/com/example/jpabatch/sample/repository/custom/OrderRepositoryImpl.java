@@ -1,19 +1,20 @@
-package jpabook.jpashop.repository.custom;
-
-import com.mysema.query.jpa.JPQLQuery;
-import com.example.jpabatch.sample.entity.Order;
-import com.example.jpabatch.sample.entity.OrderSearch;
-import jpabook.jpashop.domain.QMember;
-import jpabook.jpashop.domain.QOrder;
-import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
-import org.springframework.util.StringUtils;
+package com.example.jpabatch.sample.repository.custom;
 
 import java.util.List;
+
+import com.example.jpabatch.sample.entity.Order;
+import com.example.jpabatch.sample.entity.OrderSearch;
+import com.example.jpabatch.sample.entity.QMember;
+import com.example.jpabatch.sample.entity.QOrder;
+import com.querydsl.jpa.JPQLQuery;
+
+import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import org.springframework.util.StringUtils;
 
 /**
  * @author holyeye
  */
-public class OrderRepositoryImpl extends QueryDslRepositorySupport implements CustomOrderRepository {
+public class OrderRepositoryImpl extends QuerydslRepositorySupport implements CustomOrderRepository {
 
     public OrderRepositoryImpl() {
         super(Order.class);
@@ -36,6 +37,8 @@ public class OrderRepositoryImpl extends QueryDslRepositorySupport implements Cu
             query.where(order.status.eq(orderSearch.getOrderStatus()));
         }
 
-        return query.list(order);
+        return query.fetch();
+//      return query.list(order);
+
     }
 }

@@ -1,25 +1,25 @@
-package jpabook.jpashop.repository;
+package com.example.jpabatch.sample.repository;
 
 import com.example.jpabatch.sample.entity.Member;
 import com.example.jpabatch.sample.entity.Order;
 import com.example.jpabatch.sample.entity.OrderSearch;
 import com.example.jpabatch.sample.entity.OrderStatus;
-import jpabook.jpashop.domain.item.Book;
-import jpabook.jpashop.service.ItemService;
-import jpabook.jpashop.service.MemberService;
-import jpabook.jpashop.service.OrderService;
+import com.example.jpabatch.sample.entity.item.Book;
+import com.example.jpabatch.sample.service.ItemService;
+import com.example.jpabatch.sample.service.MemberService;
+import com.example.jpabatch.sample.service.OrderService;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:appConfig.xml")
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
 @Transactional
 public class OrderRepositoryTest {
 

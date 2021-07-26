@@ -47,7 +47,7 @@ public class ItemController {
     @RequestMapping(value = "/items/{itemId}/edit", method = RequestMethod.GET)
     public String updateItemForm(@PathVariable("itemId") Long itemId, Model model) {
 
-        jpabook.jpashop.domain.item.Item item = itemService.findOne(itemId);
+        com.example.jpabatch.sample.entity.item.Item item = itemService.findOne(itemId);
         model.addAttribute("item", item);
         return "items/updateItemForm";
     }

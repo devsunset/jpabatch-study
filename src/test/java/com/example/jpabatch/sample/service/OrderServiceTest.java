@@ -1,24 +1,28 @@
 package com.example.jpabatch.sample.service;
 
 
+import com.example.jpabatch.sample.entity.Address;
+import com.example.jpabatch.sample.entity.Member;
+import com.example.jpabatch.sample.entity.Order;
 import com.example.jpabatch.sample.entity.OrderStatus;
+import com.example.jpabatch.sample.entity.item.Book;
+import com.example.jpabatch.sample.entity.item.Item;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-/**
- * Created by holyeye on 2014. 3. 12..
- */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:appConfig.xml")
+
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
 @Transactional
 //@TransactionConfiguration(defaultRollback = false)
 public class OrderServiceTest {
@@ -27,15 +31,16 @@ public class OrderServiceTest {
     EntityManager em;
 
     @Autowired
-    jpabook.jpashop.service.OrderService orderService;
+    com.example.jpabatch.sample.service.OrderService orderService;
     @Autowired
-    jpabook.jpashop.repository.OrderRepository orderRepository;
+    com.example.jpabatch.sample.repository.OrderRepository orderRepository;
 
     @Test
     public void 상품주문() throws Exception {
 
         //Given
         Member member = createMember();
+        
         Item item = createBook("시골 JPA", 10000, 10);
         int orderCount = 2;
 
@@ -51,9 +56,9 @@ public class OrderServiceTest {
         assertEquals("주문 수량만큼 재고가 줄어야 한다.",8, item.getStockQuantity());
     }
 
-    @Test(expected = jpabook.jpashop.exception.NotEnoughStockException.class)
+    @Test(expected = com.example.jpabatch.sample.exception.NotEnoughStockException.class)
     public void 상품주문_재고수량초과() throws Exception {
-
+ 
         //Given
         Member member = createMember();
         Item item = createBook("시골 JPA", 10000, 10);

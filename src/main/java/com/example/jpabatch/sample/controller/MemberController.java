@@ -2,8 +2,8 @@ package com.example.jpabatch.sample.controller;
 
 import com.example.jpabatch.sample.entity.Address;
 import com.example.jpabatch.sample.entity.Member;
-import jpabook.jpashop.service.ItemService;
-import jpabook.jpashop.service.MemberService;
+import com.example.jpabatch.sample.service.ItemService;
+import com.example.jpabatch.sample.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

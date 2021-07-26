@@ -1,9 +1,9 @@
 package com.example.jpabatch.sample.service;
 
-import jpabook.jpashop.domain.*;
-import jpabook.jpashop.domain.item.Item;
-import jpabook.jpashop.repository.MemberRepository;
-import jpabook.jpashop.repository.OrderRepository;
+import com.example.jpabatch.sample.entity.*;
+import com.example.jpabatch.sample.entity.item.Item;
+import com.example.jpabatch.sample.repository.MemberRepository;
+import com.example.jpabatch.sample.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +28,7 @@ public class OrderService {
     public Long order(Long memberId, Long itemId, int count) {
 
         //엔티티 조회
-        Member member = memberRepository.findOne(memberId);
+        Member member = memberRepository.findById(memberId);
         Item item = itemService.findOne(itemId);
 
         //배송정보 생성

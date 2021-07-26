@@ -1,4 +1,4 @@
-package jpabook.jpashop.repository.custom;
+package com.example.jpabatch.sample.repository.custom;
 
 import com.example.jpabatch.sample.entity.Order;
 import com.example.jpabatch.sample.entity.OrderSearch;

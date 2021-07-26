@@ -1,7 +1,7 @@
-package jpabook.jpashop.repository;
+package com.example.jpabatch.sample.repository;
 
 import com.example.jpabatch.sample.entity.Order;
-import jpabook.jpashop.repository.custom.CustomOrderRepository;
+import com.example.jpabatch.sample.repository.custom.CustomOrderRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

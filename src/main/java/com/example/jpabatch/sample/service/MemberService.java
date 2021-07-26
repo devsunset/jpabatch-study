@@ -1,7 +1,7 @@
 package com.example.jpabatch.sample.service;
 
 import com.example.jpabatch.sample.entity.Member;
-import jpabook.jpashop.repository.MemberRepository;
+import com.example.jpabatch.sample.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

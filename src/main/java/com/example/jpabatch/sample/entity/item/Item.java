@@ -1,7 +1,7 @@
 package com.example.jpabatch.sample.entity.item;
 
 import com.example.jpabatch.sample.entity.Category;
-import jpabook.jpashop.exception.NotEnoughStockException;
+import com.example.jpabatch.sample.exception.NotEnoughStockException;
 
 import javax.persistence.*;
 import java.util.ArrayList;

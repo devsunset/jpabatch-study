@@ -2,9 +2,7 @@ package com.example.jpabatch.sample.service;
 
 import com.example.jpabatch.sample.entity.Address;
 import com.example.jpabatch.sample.entity.Member;
-import com.example.jpabatch.sample.service.ItemService;
-import com.example.jpabatch.sample.service.MemberService;
-import jpabook.jpashop.domain.item.Book;
+import com.example.jpabatch.sample.entity.item.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +20,7 @@ public class MockCreateService {
     @Autowired
     ItemService itemService;
     @Autowired
-    jpabook.jpashop.service.OrderService orderService;
+    com.example.jpabatch.sample.service.OrderService orderService;
 
     @PostConstruct
     public void initCreateMock() {

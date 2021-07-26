@@ -1,10 +1,10 @@
 package com.example.jpabatch.sample.entity;
 
-import org.springframework.data.jpa.domain.Specifications;
+import org.springframework.data.jpa.domain.Specification;
 
 import static com.example.jpabatch.sample.entity.OrderSpec.memberNameLike;
 import static com.example.jpabatch.sample.entity.OrderSpec.orderStatusEq;
-import static org.springframework.data.jpa.domain.Specifications.where;
+import static org.springframework.data.jpa.domain.Specification.where;
 
 /**
  * Created by holyeye on 2014. 3. 15..
@@ -30,7 +30,7 @@ public class OrderSearch {
         this.orderStatus = orderStatus;
     }
 
-    public Specifications<Order> toSpecification() {
+    public Specification<Order> toSpecification() {
         return where(memberNameLike(memberName))
                 .and(orderStatusEq(orderStatus));
     }

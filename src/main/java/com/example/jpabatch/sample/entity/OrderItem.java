@@ -1,6 +1,6 @@
 package com.example.jpabatch.sample.entity;
 
-import jpabook.jpashop.domain.item.Item;
+import com.example.jpabatch.sample.entity.item.Item;
 
 import javax.persistence.*;
 

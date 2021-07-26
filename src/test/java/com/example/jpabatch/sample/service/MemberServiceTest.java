@@ -1,23 +1,24 @@
 package com.example.jpabatch.sample.service;
 
 import com.example.jpabatch.sample.entity.Member;
-import jpabook.jpashop.repository.MemberRepository;
+import com.example.jpabatch.sample.repository.MemberRepository;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:appConfig.xml")
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
 @Transactional
 public class MemberServiceTest {
 
     @Autowired
-    jpabook.jpashop.service.MemberService memberService;
+    com.example.jpabatch.sample.service.MemberService memberService;
     @Autowired MemberRepository memberRepository;
 
     @Test
