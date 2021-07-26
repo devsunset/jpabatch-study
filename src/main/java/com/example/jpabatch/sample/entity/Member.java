@@ -34,7 +34,7 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RoleType roleType = RoleType.USER;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.EAGER)
     private List<MemberTech> memberTech = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")

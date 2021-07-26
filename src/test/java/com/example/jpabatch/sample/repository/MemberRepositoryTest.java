@@ -1,6 +1,8 @@
 package com.example.jpabatch.sample.repository;
 
 import com.example.jpabatch.sample.entity.*;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -133,6 +135,7 @@ class MemberRepositoryTest {
             log.info("findMember modifiedDate = " + memberentity.getModifiedDate());
         }
 
+        // JPQL
         String jpql = "select m from Member as m where m.email = 'devsunset@gmail.com'";
         List<Member> resultList = entityManager.createQuery(jpql, Member.class).getResultList();
         for (Member memberentity : resultList) {
@@ -170,11 +173,28 @@ class MemberRepositoryTest {
             log.info(memberTechList.toString());
         }
 
+        // Question ? - no data
         List<Member> result2 = entityManager.createQuery("SELECT m FROM Member m JOIN fetch m.memberTech").getResultList();
         for (Member memberfetch : result2 ) {
             log.info("-------------"+memberfetch.toString());
             log.info("-------------"+memberfetch.getEmail());
             log.info("-------------"+memberfetch.getMemberTech().toString());
         }
+
+//        QueryDSL
+//        https://velog.io/@junho918/Querydsl-%EC%8B%A4%EC%A0%84-Querydsl
+        JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
+        QMember m = new QMember("m");
+
+        Member findQdslMember = queryFactory
+                .select(m)
+                .from(m)
+                .where(m.email.eq("devsunset@gmail.com"))
+                .fetchOne();
+
+        log.info(findQdslMember.toString());
+
+        Assertions.assertThat(findQdslMember.getEmail()).isEqualTo("devsunset@gmail.com");
+
     }
 }
