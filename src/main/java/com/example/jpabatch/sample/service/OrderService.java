@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by holyeye on 2014. 3. 12..
@@ -28,15 +29,17 @@ public class OrderService {
     public Long order(Long memberId, Long itemId, int count) {
 
         //엔티티 조회
-        Member member = memberRepository.findById(memberId);
-        Item item = itemService.findOne(itemId);
+        Optional<Member> member = memberRepository.findById(memberId);
+        Optional<Item> item = itemService.findOne(itemId);
 
         //배송정보 생성
-        Delivery delivery = new Delivery(member.getAddress());
+        Delivery delivery = new Delivery(member.get().getAddress());
+        //Delivery delivery = new Delivery(member.getAddress());
         //주문상품 생성
-        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
+        OrderItem orderItem = OrderItem.createOrderItem(item.get(), item.get().getPrice(), count);
         //주문 생성
-        Order order = Order.createOrder(member, delivery, orderItem);
+        Order order = Order.createOrder(member.get(), delivery, orderItem);
+        //Order order = Order.createOrder(member, delivery, orderItem);
 
         //주문 저장
         orderRepository.save(order);
@@ -50,18 +53,19 @@ public class OrderService {
     public void cancelOrder(Long orderId) {
 
         //주문 엔티티 조회
-        Order order = orderRepository.findOne(orderId);
+        Optional<Order> order = orderRepository.findById(orderId);
 
         //주문 취소
-        order.cancel();
+        order.get().cancel();
+        //order.cancel();
     }
 
     /**
      * 주문 검색
      */
     public List<Order> findOrders(OrderSearch orderSearch) {
-    	return orderRepository.findAll(orderSearch.toSpecification()); // Specification 사용
-    	//return orderRepository.search(orderSearch);  //QueryDSL 사용
+//        return orderRepository.findAll(orderSearch.toSpecification()); // Specification 사용
+    	return orderRepository.search(orderSearch);  //QueryDSL 사용
     }
 
 }

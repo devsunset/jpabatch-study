@@ -2,6 +2,8 @@ package com.example.jpabatch.sample.entity;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.criteria.Order;
+
 import static com.example.jpabatch.sample.entity.OrderSpec.memberNameLike;
 import static com.example.jpabatch.sample.entity.OrderSpec.orderStatusEq;
 import static org.springframework.data.jpa.domain.Specification.where;

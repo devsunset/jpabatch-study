@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -47,7 +48,7 @@ public class ItemController {
     @RequestMapping(value = "/items/{itemId}/edit", method = RequestMethod.GET)
     public String updateItemForm(@PathVariable("itemId") Long itemId, Model model) {
 
-        com.example.jpabatch.sample.entity.item.Item item = itemService.findOne(itemId);
+        Optional<Item> item = itemService.findOne(itemId);
         model.addAttribute("item", item);
         return "items/updateItemForm";
     }
