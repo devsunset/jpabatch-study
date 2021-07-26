@@ -181,6 +181,19 @@ class MemberRepositoryTest {
             log.info("-------------"+memberfetch.getMemberTech().toString());
         }
 
+        // Query
+        Member queryFindMember = memberRepository.queryFindByEmail("devsunset@gmail.com");
+        log.info("queryFindMember = " + queryFindMember.toString());
+
+        // Native Query
+        String sql = "SELECT * FROM Member  WHERE email = ?";
+        Query nativeQuery = entityManager.createNativeQuery(sql, Member.class)
+                .setParameter(1, "devsunset@gmail.com");
+        List<Member> resultListNative = nativeQuery.getResultList();
+        for (Member memberentity : resultListNative) {
+            log.info("resultListNative = " + memberentity.toString());
+        }
+
 //        QueryDSL
 //        https://velog.io/@junho918/Querydsl-%EC%8B%A4%EC%A0%84-Querydsl
         JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
@@ -192,9 +205,7 @@ class MemberRepositoryTest {
                 .where(m.email.eq("devsunset@gmail.com"))
                 .fetchOne();
 
-        log.info(findQdslMember.toString());
-
+        log.info("findQdslMember = "+findQdslMember.toString());
         Assertions.assertThat(findQdslMember.getEmail()).isEqualTo("devsunset@gmail.com");
-
     }
 }
