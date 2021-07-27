@@ -15,17 +15,13 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model) {
-
         return "home";
     }
 
     @ResponseBody
     @RequestMapping("/wait")
     public String wait(Model model) throws InterruptedException {
-
         Thread.sleep(1000);
-
         return "response";
     }
-
 }

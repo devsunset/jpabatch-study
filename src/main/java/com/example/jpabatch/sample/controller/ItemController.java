@@ -7,7 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.List;
@@ -37,7 +42,6 @@ public class ItemController {
 
     @RequestMapping(value = "/items/new", method = RequestMethod.POST)
     public String create(Book item) {
-
         itemService.saveItem(item);
         return "redirect:/items";
     }
@@ -47,7 +51,6 @@ public class ItemController {
      */
     @RequestMapping(value = "/items/{itemId}/edit", method = RequestMethod.GET)
     public String updateItemForm(@PathVariable("itemId") Long itemId, Model model) {
-
         Optional<Item> item = itemService.findOne(itemId);
         model.addAttribute("item", item);
         return "items/updateItemForm";
@@ -58,7 +61,6 @@ public class ItemController {
      */
     @RequestMapping(value = "/items/{itemId}/edit", method = RequestMethod.POST)
     public String updateItem(@ModelAttribute("item") Book item, SessionStatus status) {
-
         itemService.saveItem(item);
         status.setComplete();
         return "redirect:/items";
@@ -69,10 +71,8 @@ public class ItemController {
      */
     @RequestMapping(value = "/items", method = RequestMethod.GET)
     public String list(Model model) {
-
         List<Item> items = itemService.findItems();
         model.addAttribute("items", items);
         return "items/itemList";
     }
-
 }

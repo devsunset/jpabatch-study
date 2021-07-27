@@ -29,7 +29,6 @@ public class MemberController {
 
     @RequestMapping(value = "/members/new", method = RequestMethod.POST)
     public String create(Member member, String city, String street, String zipcode) {
-
         Address address = new Address(city, street, zipcode);
         member.setAddress(address);
         memberService.join(member);
@@ -38,10 +37,8 @@ public class MemberController {
 
     @RequestMapping(value = "/members", method = RequestMethod.GET)
     public String list(Model model) {
-
         List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);
         return "members/memberList";
     }
-
 }
