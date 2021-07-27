@@ -15,14 +15,14 @@ public class UserStudy extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long userStudyId;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "email")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "studyId")
+    @JoinColumn(name = "study_id")
     private Study study;
 
     // To-Do - Add Field

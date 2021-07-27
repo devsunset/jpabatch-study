@@ -198,11 +198,11 @@ class UserRepositoryTest {
             log.info("=== Join Object UserTech = " +userTechList.toString());
         }
 
-        List<User> result2 = entityManager.createQuery("SELECT m FROM User m JOIN fetch m.userTech").getResultList();
+        List<User> result2 = entityManager.createQuery("SELECT m FROM User m JOIN m.userTech").getResultList();
         log.error("------------------- check ----------------- why no data ?");
         for (User userfetch : result2 ) {
-            log.info("=== Join Fetch User = "+userfetch.toString());
-            log.info("=== Join Fetch UserTech = "+userfetch.getUserTech().toString());
+            log.info("=== Join  User = "+userfetch.toString());
+            log.info("=== Join  UserTech = "+userfetch.getUserTech().toString());
         }
 
         User queryFindUser = UserRepository.queryFindByEmail("devsunset@gmail.com");

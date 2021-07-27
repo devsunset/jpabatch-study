@@ -63,7 +63,7 @@ logging:
         jdbc: debug
         org:
             hibernate:
-#                SQL: 'DEBUG'
+                SQL: 'DEBUG'
                 type:
                     descriptor:
                         sql : trace

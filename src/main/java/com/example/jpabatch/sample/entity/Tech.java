@@ -18,7 +18,7 @@ public class Tech extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long techId;
+    private Long tech_id;
 
     @OneToMany(mappedBy = "tech")
     private List<UserTech> userTech = new ArrayList<>();
