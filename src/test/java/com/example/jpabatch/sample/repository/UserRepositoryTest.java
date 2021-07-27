@@ -212,10 +212,9 @@ class UserRepositoryTest {
             log.info("=== Join Object UserTech = " +userTechList.toString());
         }
 
-        List<User> result2 = entityManager.createQuery("SELECT m FROM User m JOIN fetch m.userTechs").getResultList();
-        for (User userList : result2 ) {
-            log.info("=== Join  User = "+userList.toString());
-            log.info("=== Join  UserTech = "+userList.getUserTechs().toString());
+        List<User> result2 = entityManager.createQuery("SELECT m, t FROM User m JOIN FETCH m.userTechs t").getResultList();
+        for (User userentity : result2) {
+            log.info("=== Join Fetch Object User = " + userentity.toString());
         }
 
         User queryFindUser = UserRepository.queryFindByEmail("devsunset@gmail.com");
@@ -225,8 +224,8 @@ class UserRepositoryTest {
         Query nativeQuery = entityManager.createNativeQuery(sql, User.class)
                 .setParameter(1, "devsunset@gmail.com");
         List<User> resultListNative = nativeQuery.getResultList();
-        for (User Userentity : resultListNative) {
-            log.info("=== Native Query User = " + Userentity.toString());
+        for (User userentity : resultListNative) {
+            log.info("=== Native Query User = " + userentity.toString());
         }
 
         JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
