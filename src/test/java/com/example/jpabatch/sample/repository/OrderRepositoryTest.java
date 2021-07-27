@@ -11,6 +11,8 @@ import com.example.jpabatch.sample.service.OrderService;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -22,6 +24,8 @@ import java.util.List;
 @ExtendWith(SpringExtension.class)
 @Transactional
 public class OrderRepositoryTest {
+
+    Logger log = (Logger) LoggerFactory.getLogger(OrderRepositoryTest.class);
 
     @Autowired
     MemberService memberService;
@@ -45,6 +49,8 @@ public class OrderRepositoryTest {
         orderSearch.setOrderStatus(OrderStatus.ORDER);
 
         List<Order> search = orderRepository.search(orderSearch);
+        log.info("--------------------------"+search.toString());
+
 
         //Then
         Assert.assertEquals(1, search.size());

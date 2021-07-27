@@ -18,11 +18,11 @@ public class UserStudy extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "email")
+    @JoinColumn(name = "email" , insertable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "study_id")
+    @JoinColumn(name = "study_id", insertable = false)
     private Study study;
 
     // To-Do - Add Field
