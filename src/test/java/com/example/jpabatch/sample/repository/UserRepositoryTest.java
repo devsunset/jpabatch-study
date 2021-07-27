@@ -212,10 +212,10 @@ class UserRepositoryTest {
             log.info("=== Join Object UserTech = " +userTechList.toString());
         }
 
-        List<User> result2 = entityManager.createQuery("SELECT m,t FROM User m JOIN fetch m.userTechs t").getResultList();
-        for (User userfetch : result2 ) {
-            log.info("=== Join  User = "+userfetch.toString());
-            log.info("=== Join  UserTech = "+userfetch.getUserTechs().toString());
+        List<User> result2 = entityManager.createQuery("SELECT m FROM User m JOIN fetch m.userTechs").getResultList();
+        for (User userList : result2 ) {
+            log.info("=== Join  User = "+userList.toString());
+            log.info("=== Join  UserTech = "+userList.getUserTechs().toString());
         }
 
         User queryFindUser = UserRepository.queryFindByEmail("devsunset@gmail.com");
