@@ -9,7 +9,7 @@ import com.example.jpabatch.sample.service.ItemService;
 import com.example.jpabatch.sample.service.MemberService;
 import com.example.jpabatch.sample.service.OrderService;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,14 +23,17 @@ import java.util.List;
 @Transactional
 public class OrderRepositoryTest {
 
-    @Autowired MemberService memberService;
-    @Autowired ItemService itemService;
-    @Autowired OrderService orderService;
-    @Autowired OrderRepository orderRepository;
+    @Autowired
+    MemberService memberService;
+    @Autowired
+    ItemService itemService;
+    @Autowired
+    OrderService orderService;
+    @Autowired
+    OrderRepository orderRepository;
 
     @Test
     public void test() throws Exception {
-
         //Given
         Member member = createMember("hello");
         Book book = createItem("시골 Book", 10);
@@ -61,5 +64,4 @@ public class OrderRepositoryTest {
         itemService.saveItem(book);
         return book;
     }
-
 }

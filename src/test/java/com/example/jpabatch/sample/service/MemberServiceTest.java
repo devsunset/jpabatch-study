@@ -3,6 +3,7 @@ package com.example.jpabatch.sample.service;
 
 import com.example.jpabatch.sample.entity.Member;
 import com.example.jpabatch.sample.repository.MemberRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,21 +36,22 @@ public class MemberServiceTest {
         assertEquals(member, memberRepository.findById(saveId));
     }
 
-//    @Test(expected = IllegalStateException.class)
     @Test
     public void 중복_회원_예외() throws Exception {
-        //Given
-        Member member1 = new Member();
-        member1.setName("kim");
+        Assertions.assertThrows(IllegalStateException.class, () -> {
+            //Given
+            Member member1 = new Member();
+            member1.setName("kim");
 
-        Member member2 = new Member();
-        member2.setName("kim");
+            Member member2 = new Member();
+            member2.setName("kim");
 
-        //When
-        memberService.join(member1);
-        memberService.join(member2); //예외가 발생해야 한다.
+            //When
+            memberService.join(member1);
+            memberService.join(member2); //예외가 발생해야 한다.
 
-        //Then
-        //fail("예외가 발생해야 한다.");
+            //Then
+            Assertions.fail("예외가 발생해야 한다.");
+        });
     }
 }

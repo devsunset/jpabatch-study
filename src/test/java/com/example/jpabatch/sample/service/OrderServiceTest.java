@@ -7,7 +7,9 @@ import com.example.jpabatch.sample.entity.Order;
 import com.example.jpabatch.sample.entity.OrderStatus;
 import com.example.jpabatch.sample.entity.item.Book;
 import com.example.jpabatch.sample.entity.item.Item;
-import org.junit.Test;
+import com.example.jpabatch.sample.exception.NotEnoughStockException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,11 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 
 @SpringBootTest
@@ -58,26 +58,25 @@ public class OrderServiceTest {
         assertEquals("주문 수량만큼 재고가 줄어야 한다.",8, item.getStockQuantity());
     }
 
-    @Test(expected = com.example.jpabatch.sample.exception.NotEnoughStockException.class)
+    @Test
     public void 상품주문_재고수량초과() throws Exception {
- 
-        //Given
-        Member member = createMember();
-        Item item = createBook("시골 JPA", 10000, 10);
+        Assertions.assertThrows(NotEnoughStockException.class, () -> {
+            //Given
+            Member member = createMember();
+            Item item = createBook("시골 JPA", 10000, 10);
 
-        int orderCount = 11; //재고 보다 많은 수량
+            int orderCount = 11; //재고 보다 많은 수량
 
-        //When
-        orderService.order(member.getId(), item.getId(), orderCount);
+            //When
+            orderService.order(member.getId(), item.getId(), orderCount);
 
-        //Then
-        fail("재고 수량 부족 예외가 발생해야 한다.");
+            //Then
+            Assertions.fail("재고 수량 부족 예외가 발생해야 한다.");
+        });
     }
-
 
     @Test
     public void 주문취소() {
-
         //Given
         Member member = createMember();
         Item item = createBook("시골 JPA", 10000, 10);

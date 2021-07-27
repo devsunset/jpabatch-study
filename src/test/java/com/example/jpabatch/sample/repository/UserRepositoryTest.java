@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
+@Transactional
 class UserRepositoryTest {
 
     Logger log = (Logger) LoggerFactory.getLogger(UserRepositoryTest.class);
@@ -48,7 +49,6 @@ class UserRepositoryTest {
     private EntityManager entityManager;
 
     @Test
-    @Transactional
     public void User_crud_test() {
         //Create
         String email = "devsunset@gmail.com";
@@ -91,7 +91,6 @@ class UserRepositoryTest {
     }
 
     @Test
-    @Transactional
     public void User_complex_test() {
         String email = "devsunset@gmail.com";
         User user = new User();
