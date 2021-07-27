@@ -116,6 +116,13 @@ class UserRepositoryTest {
         Tech saveTechSub = techRepository.save(techSub);
         assertEquals(techSub.getItem(), saveTechSub.getItem());
 
+        Tech techPlus = new Tech();
+        techPlus.setCategory("OS");
+        techPlus.setItem("LINUX");
+        techPlus.setIcon("icon_location3");
+        Tech saveTechtechPlus = techRepository.save(techPlus);
+        assertEquals(techPlus.getItem(), saveTechtechPlus.getItem());
+
         Study study = new Study();
         study.setSubject("programming study");
         study.setTitle("Hello World");
@@ -141,6 +148,13 @@ class UserRepositoryTest {
         UserTech savedUserTechSub =  UserTechRepository.save(userTechSub);
         assertEquals(userTechSub.getUser(), savedUserTechSub.getUser());
         assertEquals(userTechSub.getTech(), savedUserTechSub.getTech());
+
+        UserTech userTechPlus = new UserTech();
+        userTechPlus.setUser(user);
+        userTechPlus.setTech(techPlus);
+        UserTech savedUserTechPlus =  UserTechRepository.save(userTechPlus);
+        assertEquals(userTechPlus.getUser(), savedUserTechPlus.getUser());
+        assertEquals(userTechPlus.getTech(), savedUserTechPlus.getTech());
 
         UserStudy userStudy = new UserStudy();
         userStudy.setUser(user);
@@ -190,7 +204,7 @@ class UserRepositoryTest {
             log.info("=== Query birthYear = " + result[1]);
         }
 
-        List<Object[]> result1 = entityManager.createQuery("SELECT m, t FROM User m JOIN m.userTech t").getResultList();
+        List<Object[]> result1 = entityManager.createQuery("SELECT m, t FROM User m JOIN m.userTechs t").getResultList();
         for (Object[] row : result1) {
             User userList = (User) row[0];
             UserTech userTechList = (UserTech) row[1];
@@ -198,11 +212,11 @@ class UserRepositoryTest {
             log.info("=== Join Object UserTech = " +userTechList.toString());
         }
 
-        List<User> result2 = entityManager.createQuery("SELECT m FROM User m JOIN m.userTech").getResultList();
+        List<User> result2 = entityManager.createQuery("SELECT m FROM User m JOIN fetch m.userTechs").getResultList();
         log.error("------------------- check ----------------- why no data ?");
         for (User userfetch : result2 ) {
             log.info("=== Join  User = "+userfetch.toString());
-            log.info("=== Join  UserTech = "+userfetch.getUserTech().toString());
+            log.info("=== Join  UserTech = "+userfetch.getUserTechs().toString());
         }
 
         User queryFindUser = UserRepository.queryFindByEmail("devsunset@gmail.com");

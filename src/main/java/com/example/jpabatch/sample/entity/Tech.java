@@ -21,7 +21,7 @@ public class Tech extends BaseEntity {
     private Long tech_id;
 
     @OneToMany(mappedBy = "tech")
-    private List<UserTech> userTech = new ArrayList<>();
+    private List<UserTech> users = new ArrayList<UserTech>();
 
     private String category;
 

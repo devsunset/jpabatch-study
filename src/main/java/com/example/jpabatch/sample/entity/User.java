@@ -41,10 +41,10 @@ public class User extends BaseEntity {
     private RoleType roleType = RoleType.USER;
 
     @OneToMany(mappedBy = "user")
-    private List<UserTech> userTech = new ArrayList<>();
+    private List<UserTech> userTechs = new ArrayList<UserTech>();
 
     @OneToMany(mappedBy = "user")
-    private List<UserStudy> userStudy = new ArrayList<>();
+    private List<UserStudy> userStudys = new ArrayList<UserStudy>();
 
     // To-Do - Add Field
 }
