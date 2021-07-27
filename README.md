@@ -16,6 +16,7 @@ https://github.com/holyeye/jpabook
 ### Spring JPA LINK
 https://www.youtube.com/playlist?list=PL9mhQYIlKEhfpMVndI23RwWTL9-VL-B7U
 https://www.netsurfingzone.com/jpa/how-to-get-jpa-entitymanager-in-spring-boot/
+https://velog.io/@junho918/Querydsl-%EC%8B%A4%EC%A0%84-Querydsl
 
 ```
  

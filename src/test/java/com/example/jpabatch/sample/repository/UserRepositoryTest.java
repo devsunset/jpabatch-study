@@ -1,8 +1,12 @@
 package com.example.jpabatch.sample.repository;
 
-import com.example.jpabatch.sample.entity.*;
+import com.example.jpabatch.sample.entity.QUser;
+import com.example.jpabatch.sample.entity.Study;
+import com.example.jpabatch.sample.entity.Tech;
+import com.example.jpabatch.sample.entity.User;
+import com.example.jpabatch.sample.entity.UserStudy;
+import com.example.jpabatch.sample.entity.UserTech;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -50,68 +54,79 @@ class UserRepositoryTest {
 
     @Test
     public void User_crud_test() {
-        //Create
         String email = "devsunset@gmail.com";
         User User = new User();
         User.setEmail(email);
         User.setNickName("devsunset");
         User.setBirthYear(1978);
 
+        //Create
         User savedUser = UserRepository.save(User);
         assertEquals(User.getEmail(), savedUser.getEmail());
-
-        log.info("savedUser createdDate = " + savedUser.getCreatedDate());
-        log.info("savedUser modifiedDate = " + savedUser.getModifiedDate());
+        log.info("=== Create User = " + savedUser.toString());
 
         //Read
         User findByEmail = UserRepository.findByEmail(email);
-        log.info("findByEmail = " + findByEmail.toString());
-        log.info("findByEmail createdDate = " + findByEmail.getCreatedDate());
-        log.info("findByEmail modifiedDate = " + findByEmail.getModifiedDate());
+        assertEquals(email, findByEmail.getEmail());
+        log.info("=== Read User = " + findByEmail.toString());
 
         //Update
         findByEmail.setGithub("https://github.com/devsunset");
         savedUser = UserRepository.save(findByEmail);
         assertEquals("https://github.com/devsunset", savedUser.getGithub());
+        log.info("=== Update User = " +savedUser.toString());
 
         List<User> findUser = UserRepository.findAll();
         for (User Userentity : findUser) {
-            System.out.println("User = " + User);
-
-            log.info("findUser = " + Userentity.toString());
-            log.info("findUser createdDate = " + Userentity.getCreatedDate());
-            log.info("findUser modifiedDate = " + Userentity.getModifiedDate());
-
             //Delete
             UserRepository.delete(Userentity);
-
             List<User> findUserSub = UserRepository.findAll();
-            log.info(" findUserSub size : "+findUserSub.size());
+            assertEquals(0, findUserSub.size());
+            log.info(" Delete User :  size : "+findUserSub.size());
         }
     }
 
     @Test
     public void User_complex_test() {
-        String email = "devsunset@gmail.com";
         User user = new User();
-        user.setEmail(email);
+        user.setEmail("devsunset@gmail.com");
         user.setNickName("devsunset");
         user.setBirthYear(1978);
         User savedUser = UserRepository.save(user);
         assertEquals(user.getEmail(), savedUser.getEmail());
 
+        User userSub = new User();
+        userSub.setEmail("k2h100@naver.com");
+        userSub.setNickName("sunset");
+        userSub.setBirthYear(2011);
+        User savedUserSub = UserRepository.save(userSub);
+        assertEquals(userSub.getEmail(), savedUserSub.getEmail());
+
         Tech tech = new Tech();
         tech.setCategory("LANGUAGE");
         tech.setItem("JAVA");
-        tech.setIcon("icon_location");
+        tech.setIcon("icon_location1");
         Tech saveTech = techRepository.save(tech);
         assertEquals(tech.getItem(), saveTech.getItem());
+
+        Tech techSub = new Tech();
+        techSub.setCategory("DB");
+        techSub.setItem("H2");
+        techSub.setIcon("icon_location2");
+        Tech saveTechSub = techRepository.save(techSub);
+        assertEquals(techSub.getItem(), saveTechSub.getItem());
 
         Study study = new Study();
         study.setSubject("programming study");
         study.setTitle("Hello World");
         Study savedStudy = studyRepository.save(study);
         assertEquals(study.getTitle(), savedStudy.getTitle());
+
+        Study studySub = new Study();
+        studySub.setSubject("toy project");
+        studySub.setTitle("Web Application");
+        Study savedStudySub = studyRepository.save(studySub);
+        assertEquals(studySub.getTitle(), savedStudySub.getTitle());
 
         UserTech userTech = new UserTech();
         userTech.setUser(user);
@@ -120,6 +135,13 @@ class UserRepositoryTest {
         assertEquals(userTech.getUser(), savedUserTech.getUser());
         assertEquals(userTech.getTech(), savedUserTech.getTech());
 
+        UserTech userTechSub = new UserTech();
+        userTechSub.setUser(userSub);
+        userTechSub.setTech(techSub);
+        UserTech savedUserTechSub =  UserTechRepository.save(userTechSub);
+        assertEquals(userTechSub.getUser(), savedUserTechSub.getUser());
+        assertEquals(userTechSub.getTech(), savedUserTechSub.getTech());
+
         UserStudy userStudy = new UserStudy();
         userStudy.setUser(user);
         userStudy.setStudy(study);
@@ -127,20 +149,28 @@ class UserRepositoryTest {
         assertEquals(userStudy.getUser(), savedUserStudy.getUser());
         assertEquals(userStudy.getStudy(), savedUserStudy.getStudy());
 
+        UserStudy userStudySub = new UserStudy();
+        userStudySub.setUser(userSub);
+        userStudySub.setStudy(studySub);
+        UserStudy savedUserStudySub = UserStudyRepository.save(userStudySub);
+        assertEquals(userStudySub.getUser(), savedUserStudySub.getUser());
+        assertEquals(userStudySub.getStudy(), savedUserStudySub.getStudy());
+
+        log.info("========================== TEST DATA LODA SUCCESS ========================================");
+
         List<User> findUser = UserRepository.findAll();
         for (User userentity : findUser) {
-            log.info("findUser = " + userentity.toString());
-            log.info("findUser createdDate = " + userentity.getCreatedDate());
-            log.info("findUser modifiedDate = " + userentity.getModifiedDate());
+            log.info("=== JpaRepository User = " + userentity.toString());
+            log.info("=== JpaRepository createdDate = " + userentity.getCreatedDate());
+            log.info("=== JpaRepository modifiedDate = " + userentity.getModifiedDate());
         }
 
-        // JPQL
         String jpql = "select m from User as m where m.email = 'devsunset@gmail.com'";
         List<User> resultList = entityManager.createQuery(jpql, User.class).getResultList();
         for (User userentity : resultList) {
-            log.info("findUser = " + userentity.toString());
-            log.info("findUser createdDate = " + userentity.getCreatedDate());
-            log.info("findUser modifiedDate = " + userentity.getModifiedDate());
+            log.info("=== JPQL User = " + userentity.toString());
+            log.info("=== JPQL createdDate = " + userentity.getCreatedDate());
+            log.info("=== JPQL modifiedDate = " + userentity.getModifiedDate());
         }
 
         TypedQuery<User> query = entityManager.createQuery("SELECT m FROM User m where email = :email", User.class);
@@ -148,53 +178,44 @@ class UserRepositoryTest {
         query.setFirstResult(1);    // 조회 시작 위치
         query.setMaxResults(10);    // 조회할 데이터 수
         List<User> resultList1 = query.getResultList();
-//        query.getSingleResult() : 결과가 정확히 하나일 때 사용
-//                - 결과가 없으면 javax.persistence.NoResultException 예외 발생
-//                - 결과가 1보다 많으면 javax.persistence.NonUniqueResultException 예외 발생
         for (User userentity : resultList1) {
-            log.info("findUser = " + userentity.toString());
+            log.info("=== TypedQuery User = " + userentity.toString());
         }
 
         Query querySub = entityManager.createQuery("SELECT m.email, m.birthYear FROM User m");
-
         List resultList2 = querySub.getResultList();
         for (Object o : resultList2) {
             Object[] result = (Object[]) o;
-            log.info("email = " + result[0]);
-            log.info("birthYear = " + result[1]);
+            log.info("=== Query email = " + result[0]);
+            log.info("=== Query birthYear = " + result[1]);
         }
 
         List<Object[]> result1 = entityManager.createQuery("SELECT m, t FROM User m JOIN m.userTech t").getResultList();
         for (Object[] row : result1) {
             User userList = (User) row[0];
             UserTech userTechList = (UserTech) row[1];
-            log.info(userList.toString());
-            log.info(userTechList.toString());
+            log.info("=== Join Object User = " +userList.toString());
+            log.info("=== Join Object UserTech = " +userTechList.toString());
         }
 
-        // Question ? - no data
         List<User> result2 = entityManager.createQuery("SELECT m FROM User m JOIN fetch m.userTech").getResultList();
+        log.error("------------------- check ----------------- why no data ?");
         for (User userfetch : result2 ) {
-            log.info("-------------"+userfetch.toString());
-            log.info("-------------"+userfetch.getEmail());
-            log.info("-------------"+userfetch.getUserTech().toString());
+            log.info("=== Join Fetch User = "+userfetch.toString());
+            log.info("=== Join Fetch UserTech = "+userfetch.getUserTech().toString());
         }
 
-        // Query
         User queryFindUser = UserRepository.queryFindByEmail("devsunset@gmail.com");
-        log.info("queryFindUser = " + queryFindUser.toString());
+        log.info("=== JPARepository Query User = " + queryFindUser.toString());
 
-        // Native Query
         String sql = "SELECT * FROM User  WHERE email = ?";
         Query nativeQuery = entityManager.createNativeQuery(sql, User.class)
                 .setParameter(1, "devsunset@gmail.com");
         List<User> resultListNative = nativeQuery.getResultList();
         for (User Userentity : resultListNative) {
-            log.info("resultListNative = " + Userentity.toString());
+            log.info("=== Native Query User = " + Userentity.toString());
         }
 
-//        QueryDSL
-//        https://velog.io/@junho918/Querydsl-%EC%8B%A4%EC%A0%84-Querydsl
         JPAQueryFactory queryFactory = new JPAQueryFactory(entityManager);
         QUser m = new QUser("m");
 
@@ -204,7 +225,6 @@ class UserRepositoryTest {
                 .where(m.email.eq("devsunset@gmail.com"))
                 .fetchOne();
 
-        log.info("findQdslUser = "+findQdslUser.toString());
-        Assertions.assertThat(findQdslUser.getEmail()).isEqualTo("devsunset@gmail.com");
+        log.info("=== QueryDSL User = " +findQdslUser.toString());
     }
 }
