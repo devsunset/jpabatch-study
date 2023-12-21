@@ -6,7 +6,7 @@
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>                              <!-- JDBC 드라이버 -->
             <property name="javax.persistence.jdbc.user" value="sa"/>                                           <!-- DB 접속 ID -->
             <property name="javax.persistence.jdbc.password" value=""/>                                         <!-- DB 접속 PW -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/temp/jpabatch-work"/>  <!-- DB 접속 URL -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/temp/jpabatch-study"/>  <!-- DB 접속 URL -->
             <!-- DB Dialect 설정 -->
             <!-- DB 변경 시 DB 방언(Dialect)만 교체 -->
             <!--
